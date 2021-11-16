@@ -1,5 +1,5 @@
 ---
-## __Project management__
+## **Project management**
 
 Purpose:
 To log meeting attendance and decisions.
