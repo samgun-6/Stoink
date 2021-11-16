@@ -1,5 +1,11 @@
 ## **Project management**
 
+| Syntax      | Description |
+| ----------- | ----------- |
+| Header      | Title       |
+| Paragraph   | Text        |
+
+
 Purpose:
 To log meeting attendance and decisions.
 
