@@ -1,81 +1,79 @@
 ## **Project management**
 
 
-Purpose:
+Purpose:<br>
 To log meeting attendance and decisions.
+
+We start meeting with standup, we discuss the progress achieved by each member, the existing issues, and ways to resolve them
 
 ---
 
 
 ### **Week 44**
-No meetings
-
+No meetings<br>
 Forming groups
-
 
 ---
 ### **Week 45**
-#### Meeting 8/11.
+#### **Meeting 8/11**.
 
-Missing: none
+**Missing:**<br>
+none
 
-Decisions:
+**Decisions:**<br>
+Meeting Mon 09:00-10:00 and Wed 12:00-13:00.<br>
+Adding extra meetings if required.<br>
+Started a Discord for communication and Trello board for Project Management.<br>
+Deciding on 3 potential ideas.<br>
 
-Meeting Mon 09:00-10:00 and Wed 12:00-13:00.
-Adding extra meetings if required.
-Started a Discord for communication and Trello board for Project Management.
-Deciding on 3 potential ideas.
+#### **Meeting 10/11**.
 
-#### Meeting 10/11.
+**Missing:**<br>
+none
 
-Missing: none
-
-Decisions:
-
-Decided on Stock picking prediction.
-Distributed Assignment 1 into individual tasks.
-All should install necessary software packages and libraries.
+**Decisions:**<br>
+Decided on Stock picking prediction.<br>
+Distributed Assignment 1 into individual tasks.a<br>
+All should install necessary software packages and libraries.<br>
 
 | Task        | Responsible |
 | ----------- | ----------- |
 | Write concept      | Zhijie Wei       |
 | Write requirments   | Effat Mahmud Enti        |
-| ave API data in SQL and CSV file   | Samuel Gunnarsson        |
+| Save API data in SQL and CSV file   | Samuel Gunnarsson        |
 | Describe data and discuss validity for project   | Eemil Jeskanen        |
 | Create a toy prediction model   | Eric Hallberg        |
 
-Write concept - Zhijie Wei
-Write requirments - Effat Mahmud Enti
-Save API data in SQL and CSV file - Samuel Gunnarsson
-Describe data and discuss validity for project - Eemil Jeskanen
-Create a toy prediction model - Eric Hallberg
 
-Agenda for next meeting:
-Standup.
-check progression on Assingment 1 tasks.
-Decide on facilitator.
-Setup Gitlab repo.
+**Agenda for next meeting:**<br>
+Standup.<br>
+check progression on Assingment 1 tasks.<br>
+Decide on facilitator.<br>
+Setup Gitlab repo.<br>
 
 ---
 ### **Week 46**
-#### Meeting 15/11.
+#### **Meeting 15/11**.
 
-Missing: none
+**Missing:**<br>
+none
 
-Decisions:
-Decided on facilitator and markdown reponsible.
-Choose a name for the project.
-Try to finish Assigment 1 tasks for Wed meeting.
-Study what balance sheet and LTSM NN is.
+**Decisions:**<br>
+Decided on facilitator and markdown reponsible.<br>
+Choose a name for the project.<br>
+Try to finish Assigment 1 tasks for Wed meeting.<br>
+Study what balance sheet and LTSM NN is.<br>
 
-Tasks:
 
-Create markdown document - Eric Hallberg
+| Task        | Responsible |
+| ----------- | ----------- |
+| Create markdown document   | Eric Hallberg        |
 
-Agenda for next meeting:
-Standup.
-Finish Assignment 1 together.
-Discuss Deployment software for our system.
+
+**Agenda for next meeting:**<br>
+Standup.<br>
+Finish Assignment 1 together.<br>
+Discuss Deployment software for our system.<br>
 
 ---
 ### **Week 47**
