@@ -1,4 +1,3 @@
-
 ## **Project management**
 
 Purpose:
@@ -20,6 +19,7 @@ Forming groups
 Missing: none
 
 Decisions:
+
 Meeting Mon 09:00-10:00 and Wed 12:00-13:00.
 Adding extra meetings if required.
 Started a Discord for communication and Trello board for Project Management.
@@ -30,9 +30,18 @@ Deciding on 3 potential ideas.
 Missing: none
 
 Decisions:
+
 Decided on Stock picking prediction.
 Distributed Assignment 1 into individual tasks.
 All should install necessary software packages and libraries.
+
+Tasks:
+
+Write concept - Zhijie Wei
+Write requirments - Effat Mahmud Enti
+Save API data in SQL and CSV file - Samuel Gunnarsson
+Describe data and discuss validity for project - Eemil Jeskanen
+Create a toy prediction model - Eric Hallberg
 
 Agenda for next meeting:
 Standup.
@@ -52,9 +61,13 @@ Choose a name for the project.
 Try to finish Assigment 1 tasks for Wed meeting.
 Study what balance sheet and LTSM NN is.
 
+Tasks:
+
+Create markdown document - Eric Hallberg
+
 Agenda for next meeting:
 Standup.
-Finish Assignment 1.
+Finish Assignment 1 together.
 Discuss Deployment software for our system.
 
 ---
