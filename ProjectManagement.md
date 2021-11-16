@@ -1,10 +1,5 @@
 ## **Project management**
 
-| Syntax      | Description |
-| ----------- | ----------- |
-| Header      | Title       |
-| Paragraph   | Text        |
-
 
 Purpose:
 To log meeting attendance and decisions.
@@ -41,7 +36,13 @@ Decided on Stock picking prediction.
 Distributed Assignment 1 into individual tasks.
 All should install necessary software packages and libraries.
 
-Tasks:
+| Task        | Responsible |
+| ----------- | ----------- |
+| Write concept      | Zhijie Wei       |
+| Write requirments   | Effat Mahmud Enti        |
+| ave API data in SQL and CSV file   | Samuel Gunnarsson        |
+| Describe data and discuss validity for project   | Eemil Jeskanen        |
+| Create a toy prediction model   | Eric Hallberg        |
 
 Write concept - Zhijie Wei
 Write requirments - Effat Mahmud Enti
