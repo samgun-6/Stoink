@@ -75,6 +75,37 @@ Standup.<br>
 Finish Assignment 1 together.<br>
 Discuss Deployment software for our system.<br>
 
+#### **Meeting 17/11**.
+
+**Missing:**<br>
+none
+
+**Discussions:**<br>
+Deployment software.<br>
+What type the label should be.<br>
+What type of features we should use.<br>
+file structure in the SQL database.<br>
+What framework to use.<br>
+Using CD/CI during the project in gitlab.<br>
+
+
+**Decisions:**<br>
+Individually look through assignment 1 and then have meeting on friday 13:30 to finish up and submit.<br>
+ASk ta on tuesday about docker/kubernetes.<br>
+Booking a room for next on campus meeting in SVEA.<br>
+prediction will be the price difference in three months after latest balance sheet release.<br>
+
+
+| Task        | Responsible |
+| ----------- | ----------- |
+|      |          |
+
+
+**Agenda for next meeting 24/11:**<br>
+Standup.<br>
+Dicuss which features to use.<br>
+
+
 ---
 ### **Week 47**
 
