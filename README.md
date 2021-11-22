@@ -6,7 +6,7 @@ Stoink for stock price prediction is a system that uses deep learning LSTM model
 TBA 
 
 
-## Libraries uses 
+## Libraries used 
  - Numpy 
  - Matplotlib
  - Tensorflow 
