@@ -109,6 +109,36 @@ Dicuss which features to use.<br>
 ---
 ### **Week 47**
 
+#### **Meeting 17/11**.
+
+**Missing:**<br>
+none
+
+**Discussions:**<br>
+Topics and questions for TA-session 23/11.<br>
+What features to use.<br>
+Using pipenv for the rest of the project?.<br>
+
+
+**Decisions:**<br>
+Deciding to start on the front-end, setting up basic project.<br>
+Make an intital UI design.<br>
+Completing the database with monthly data (label).<br>
+
+
+| Task        | Responsible |
+| ----------- | ----------- |
+| Mock-up Ui design      | Zhijie Wei       |
+| Setup CI/CD   | Effat Mahmud Enti        |
+| Load & save monthly data from API   | Samuel Gunnarsson        |
+| Setup Django   | Eemil Jeskanen        |
+| Create code to label the data correctly   | Eric Hallberg        |
+
+
+**Agenda for next meeting 24/11:**<br>
+Standup.<br>
+Looking at Assignment 2.<br>
+
 
 
 
