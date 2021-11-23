@@ -1,9 +1,13 @@
 # Stoink
 
-Stoink for stock price prediction is a system that uses deep learning LSTM model to predict the price increase or decrease of one or more stocks for the next three months.
+Stoink for Stock Price Prediction is a system that uses deep learning LSTM model to predict the price increase or decrease of one or more stocks for the next three months.
 
 # Datasets used 
-TBA 
+[AlphaVantage API](https://www.alphavantage.co/)
+
+AlphaVantage provides data from fundamental data to technical indicators. The system is not only based the learning algorithm on the listing/opening/closing prices, but to go deeper by using the fundamental data provided by AlphaVantage. 
+By using the fundamental data of companies we will be able to read data such as what assets the company has and their investments, their inventory and liabilities and the cash flow of the company and the earnings etc. 
+The free API version is limited to 5 requests per minute and 500 total per day. 
 
 # Libraries used 
  - Numpy 
@@ -19,6 +23,11 @@ TBA
  - LSTM
 
 
+# Features 
+TBA 
+- Describe your ML pipeline, how the raw data is processed, what features to use
+- Discuss how you addressed the aspects “data validation” and “model evaluation”
+in your project.
 
 # Setup
 ## Install Anaconda(Recommended)
@@ -45,7 +54,10 @@ The client aims to present the option of using our model to predict what the inc
 # Mockup UI design 
 ![mockup_v1](mockup/mockup_v1.png)
 
-# Results
+# Screenshots 
+TBA 
+
+# Production system
 TBA
 
 # Project management 
