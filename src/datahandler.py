@@ -7,9 +7,9 @@ import time
 import io
 
 # Get the balance_sheet data with an API key
-def get_balance_sheet(symbol):
+def get_fundamental_data(symbol, func):
     # Add the API key to the config.py file before running the code below
-    url = f'https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol={symbol}&apikey={config.API_KEY}'
+    url = f'https://www.alphavantage.co/query?function={func}&symbol={symbol}&apikey={config.API_KEY}'
     print(url)
     r = requests.get(url)
     data = r.json()
@@ -18,9 +18,9 @@ def get_balance_sheet(symbol):
         json.dump(data, f)
 
 # Get data in .csv format and append to a file
-def get_monthly_data_csv(symbol):
+def get_monthly_data_csv(symbol, func):
     # Add the API key to the config.py file before running the code below
-    url = f'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol={symbol}&datatype=csv&apikey={config.API_KEY}'
+    url = f'https://www.alphavantage.co/query?function={func}&symbol={symbol}&datatype=csv&apikey={config.API_KEY}'
     print(url)
     r = requests.get(url).content
 
@@ -30,12 +30,12 @@ def get_monthly_data_csv(symbol):
     data.to_csv("../data/monthly-data.csv", mode='a', index=False, header=False, sep=',', encoding="utf-8")    
 
 # Use Pandas library json_normalize to write json data to a csv file
-def write_to_csv():
+def write_to_csv(name):
     with open('../data/temp.json') as data_file:  
         data = json.load(data_file)
 
     df = pd.json_normalize(data, record_path=['quarterlyReports'], meta=['symbol'])
-    df.to_csv("../data/balance-sheet.csv", mode='a', index=False, header=False, sep=',', encoding="utf-8") # write to csv file
+    df.to_csv(f"../data/{name}.csv", mode='a', index=False, header=False, sep=',', encoding="utf-8") # write to csv file
 
 # Sort values in a .csv file
 def sort_values():
@@ -48,20 +48,21 @@ def sort_values():
 # Loading data into csv file
 def load_dataset():
     df = pd.read_csv('../data/nasdaq_screener_sorted_values.csv')
-
+    count = 0
     # Set the limit of records 
     df_lim = df.head(200)
     for symbol in df_lim['Symbol']:
         
         # Get the monthly data
-        get_monthly_data_csv(symbol)
+        # get_monthly_data_csv(symbol)
 
         # Get and convert the balance sheet
-        get_balance_sheet()
-        write_to_csv(symbol)
-
+        get_fundamental_data(symbol, func='CASH_FLOW')
+        write_to_csv(name='cash_flow')
+        count = count + 1
+        print("{}{}".format('count = ', count))
         # Add a timout to prevent exceeding the API call limit (5 requests/min)
-        time.sleep(30)
+        time.sleep(15)
 
 
 # Write json data to a csv file
