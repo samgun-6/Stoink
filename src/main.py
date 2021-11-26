@@ -8,10 +8,7 @@ db = f'../data/{symbol}.db'
 csv = f'../data/{symbol}.csv'
 
 
-datahandler.get_balance_sheet(symbol)
-datahandler.write_to_csv(symbol)
-database.load_database(db, csv)
-database.show_all(db)
+datahandler.load_dataset()
 
 # database.show_table(db)
 
