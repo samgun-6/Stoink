@@ -34,7 +34,7 @@ def write_to_csv(name):
     with open('../data/temp.json') as data_file:  
         data = json.load(data_file)
 
-    df = pd.json_normalize(data, record_path=['quarterlyReports'], meta=['symbol'])
+    df = pd.json_normalize(data, record_path=['quarterlyEarnings'], meta=['symbol'])
     df.to_csv(f"../data/{name}.csv", mode='a', index=False, header=False, sep=',', encoding="utf-8") # write to csv file
 
 # Sort values in a .csv file
@@ -57,8 +57,8 @@ def load_dataset():
         # get_monthly_data_csv(symbol)
 
         # Get and convert the balance sheet
-        get_fundamental_data(symbol, func='CASH_FLOW')
-        write_to_csv(name='cash_flow')
+        get_fundamental_data(symbol, func='EARNINGS')
+        write_to_csv(name='EARNINGS')
         count = count + 1
         print("{}{}".format('count = ', count))
         # Add a timout to prevent exceeding the API call limit (5 requests/min)
