@@ -101,7 +101,7 @@ prediction will be the price difference in three months after latest balance she
 |      |          |
 
 
-**Agenda for next meeting 24/11:**<br>
+**Agenda for next meeting 22/11:**<br>
 Standup.<br>
 Dicuss which features to use.<br>
 
@@ -109,7 +109,7 @@ Dicuss which features to use.<br>
 ---
 ### **Week 47**
 
-#### **Meeting 17/11**.
+#### **Meeting 22/11**.
 
 **Missing:**<br>
 none
@@ -140,11 +140,62 @@ Standup.<br>
 Looking at Assignment 2.<br>
 
 
+#### **Meeting 24/11**.
 
+**Missing:**<br>
+none
+
+**Discussions:**<br>
+Definition of done, how to handle merge requests<br>
+Assigment 2.<br>
+How to handle data in the database.<br>
+
+
+**Decisions:**<br>
+Create new branch called development, all branch out from this and then deal with ther own marge requests.
+Every monday meeting we review the development branch and merge it to the main branch.<br>
+
+
+| Task        | Responsible |
+| ----------- | ----------- |
+| Basic homepage setup      | Zhijie Wei       |
+| Frontend prediction page     | Zhijie Wei       |
+| Frontend admin page  | Samuel Gunnarsson        |
+| Frontend Header and Footer   | Eemil Jeskanen        |
+| Correlation analysis on data  | Eric Hallberg        |
+
+
+**Agenda for next meeting 29/11:**<br>
+Standup.<br>
+Feedback A1
 
 ---
 ### **Week 48**
 
+#### **Meeting 29/11**.
+
+**Missing:**<br>
+Effat Mahmud Enti.<br>
+
+**Discussions:**<br>
+Correlation analysis result.<br>
+Added additonal data, Income statement, earnings and cash flow.<br>
+How to handle data in the database.<br>
+What to ask during supervision session 30/11.<br>
+
+
+**Decisions:**<br>
+Add descriptio to homepage.<br>
+wait with merging dev into main after SV-session.
+
+
+
+| Task        | Responsible |
+| ----------- | ----------- |
+
+
+**Agenda for next meeting 1/12:**<br>
+Standup.<br>
 
 
 
