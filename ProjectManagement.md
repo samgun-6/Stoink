@@ -186,8 +186,8 @@ What to ask during supervision session 30/11.<br>
 
 **Decisions:**<br>
 Add descriptio to homepage.<br>
-wait with merging dev into main after SV-session.
-
+Wait with merging dev into main after SV-session.<br>
+Ask Ta about what features is good enough, SV-session.<br>
 
 
 | Task        | Responsible |
