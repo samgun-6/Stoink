@@ -197,6 +197,33 @@ Ask Ta about what features is good enough, SV-session.<br>
 **Agenda for next meeting 1/12:**<br>
 Standup.<br>
 
+#### **Meeting 1/12**.
+
+**Missing:**<br>
+None.<br>
+
+**Discussions:**<br>
+After a member dropout we need to be really requirment oriented when making tasks, try to get a product to show on the fair.<br>
+Discussion about what fetures to use.<br>
+Discussion about how we feel about our progress.<br>
+
+
+**Decisions:**<br>
+Starting an intial model based on the current best features.<br>
+Secided to try % on our features, so the difference between reports, as new features.<br>
+Merging dev branch into main on monday.<br>
+
+
+| Task        | Responsible |
+| ----------- | ----------- |
+| Make initial model      | Zhijie Wei       |
+| Make initial model      | Effat Mahmud Enti       |
+| Frontend admin page  | Samuel Gunnarsson        |
+| 10 best feature into a CSV file (for the model)  | Eric Hallberg        |
+| Change all features to % increase and make correlation analysis  | Eric Hallberg        |
+
+**Agenda for next meeting 6/12:**<br>
+Standup.<br>
 
 
 ---
