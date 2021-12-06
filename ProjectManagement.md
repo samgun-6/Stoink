@@ -229,8 +229,32 @@ Standup.<br>
 ---
 ### **Week 49**
 
+#### **Meeting 6/12**.
+
+**Missing:**<br>
+Effat Mahmud Enti.<br>
+
+**Discussions:**<br>
+What model fits our problem best.<br>
+Discussion about what fetures to use.<br>
+Structure of the entire project.<br>
 
 
+**Decisions:**<br>
+Adding features of market type for each stock/company.<br>
+Try to install kubernetes.<br>
+Decide next Ta meeting about features.<br>
+merging Dev into main.<br>
+
+
+| Task        | Responsible |
+| ----------- | ----------- |
+| Add market category as aa feature to the dataset  | Eric Hallberg        |
+
+
+**Agenda for next meeting 6/12:**<br>
+Standup.<br>
+Decide which model to use.<br>
 
 ---
 ### **Week 50**
