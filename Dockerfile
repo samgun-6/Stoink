@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . code
 WORKDIR /code
 
-EXPOSE 8000
+EXPOSE 8080
 
 # runs the production server
 ENTRYPOINT ["python", "client/manage.py"]
