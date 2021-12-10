@@ -163,4 +163,5 @@ def clean_raw_data():
     df_to_export = final_df[cols_extract]
     df_to_export.to_csv(r'../data/topFiveFeats.csv', sep= ",", index = False)
 
-clean_raw_data()
+# Dummycode, REMOVE!
+# clean_raw_data()
