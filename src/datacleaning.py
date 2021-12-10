@@ -28,10 +28,6 @@ def clean_raw_data():
     sliceMonthly = tempMonthly["timestamp"].str.slice(0, -3)
     tempMonthly["timestamp"] = sliceMonthly
 
-    # Printing
-    print("Monthly Data:")
-    print(tempMonthly["timestamp"])
-
     # Slicing the timestamp in Income Statement, removing the days
     sliceIncomestatement = tempIncomeStatement["timestamp"].str.slice(0, -3)
     tempIncomeStatement["timestamp"] = sliceIncomestatement
@@ -166,3 +162,5 @@ def clean_raw_data():
     # Export to CSV file
     df_to_export = final_df[cols_extract]
     df_to_export.to_csv(r'../data/topFiveFeats.csv', sep= ",", index = False)
+
+clean_raw_data()
