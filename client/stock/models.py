@@ -1,13 +1,18 @@
 from __future__ import unicode_literals
 from django.db import models
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from keras.constraints import maxnorm
+from sklearn import preprocessing
+import numpy as np
+import json as json
+import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
-import pandas as pd
-import pandas_datareader as web
-import datetime as dt
-from sklearn.preprocessing import MinMaxScaler
-from tensorflow.keras.models import Sequential, load_model
-from tensorflow.keras.layers import Dense, Dropout, LSTM
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+
 
 class Stock(models.Model):
 
@@ -18,70 +23,68 @@ class Stock(models.Model):
         return self.name
 
 class Prediction:
-    date: str
     price: float
 
-    def __init__(self, date, price):
-        self.date = date
+    def __init__(self, price):
         self.price = price
 
 
-# Here is the model, the first time when it runs, it will generate a model file called lstm_1.h5
-# if we have the h5 file, we can comment out the code
-
 # Load Data
-# add other 198 stock names later 
 stocks = ['AAPL']
 
 for stock_index in range(0, len(stocks)):
-    stock = stocks[stock_index]
-    # read data
-    data = pd.read_csv("data/monthly-data.csv")
-    # get time from timestamp
-    data['timestamp'] = pd.to_datetime(data['timestamp'])
-    # calculate time duration
-    start = data.TIME.min()
-    end = data.TIME.max()
-    mask = (data['timestamp'] > start) & (data['timestamp'] <= end)
-    # extract all data in the time duration
-    data = data.loc[mask]
+    stocks= stocks[stock_index]
 
-    # Precess data
-    # use MinMaxScaler to transform each feature a giving range 0-1
-    scaler = MinMaxScaler(feature_range=(0,1))
+    df = pd.read_csv('data/topFiveFeats.csv', sep=',')
 
-    scaled_data = scaler.fit_transform(data['CLOSE'].values.reshape(-1,1))
+    # Initiating a Sequential model with keras
+    model = tf.keras.models.Sequential()
 
+    # Adding layers to the model
+    model.add(tf.keras.layers.Dense(units=10, input_dim=5,input_shape=(None, 5)))
+    model.add(tf.keras.layers.Dropout(0.2))
+    model.add(tf.keras.layers.Dense(100, activation='relu'))
+    model.add(tf.keras.layers.Dense(51, activation='relu'))
+    model.add(tf.keras.layers.Dense(units=1, activation='linear'))
 
-    # How many days back should the prediction be based on
-    prediction_days = 365
+    # Compiling the model
+    opt = tf.keras.optimizers.Adam(lr=0.005)
+    model.compile(loss='mean_squared_error', optimizer=opt, metrics=['accuracy'])
 
-    x_train = []
-    y_train = []
+    # Declaring the label and features np.array
+    column_features = []
+    for col in df.columns:
+        if col != "1m":
+            column_features.append(col)
+    # column_features = ["reportedEPS","totalNonCurrentAssets","totalCurrentAssets","otherNonCurrentLiabilities", "cashflowFromFinancing"]
 
-    for x in range(prediction_days, len(scaled_data)):
-        x_train.append(scaled_data[x - prediction_days:x, 0])
-        y_train.append(scaled_data[x, 0])
+    # Slicing the dataset to features and labels
+    y = df["1m"].to_numpy()
+    X = df[column_features].to_numpy()
 
-    x_train, y_train = np.array(x_train), np.array(y_train)
-    x_train = np.reshape(x_train, (x_train.shape[0], x_train.shape[1], 1))
+    # Normalizing
+    X = preprocessing.normalize(X)
 
-    # Build LSTM model
-    model = Sequential()
+    # Splitting the dataset
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3727)
 
-    model.add(LSTM(units=5, return_sequences=True, input_shape=(x_train.shape[1], 1)))
-    model.add(Dropout(0.2))
-    model.add(LSTM(units=5, return_sequences=True))
-    model.add(Dropout(0.2))
-    model.add(LSTM(units=5))
-    model.add(Dropout(0.2))
-    model.add(Dense(units=5))  # Prediction of the next closing value
+    # Fitting the model
+    model.fit(X_train, y_train, epochs=100, batch_size=16)
 
-    model.compile(optimizer='adam', loss='mean_squared_error')
-    model.fit(x_train, y_train, epochs=1, batch_size=32)
-
-    model_fname = 'lstm_1.h5'
+    # save model
+    model_fname = 'model_v1.h5'
     model.save(model_fname)
-    # check model architecture
-    n_model = load_model(model_fname)
-    n_model.summary()
+
+    # Code for evaluating
+    # Model evaluation
+    # test_loss, test_acc = model.evaluate(X_test, y_test)
+    # Printing
+    # print('\nTest accuracy:', test_acc)
+
+    # Code for prediction
+    # prediction
+    # predictions = model.predict(X_test)
+    # print(predictions)
+
+# Dummycode, REMOVE!
+# train_model()

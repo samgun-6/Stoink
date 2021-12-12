@@ -537,8 +537,20 @@ def predict(request):
          stock_name = "Marvell Technology Inc. Common Stock"
       stock = stock_value
 
+      df = pd.read_csv('data/topFiveFeats.csv', sep=',')
 
-# here to add code to render the model to the frontend prediction page
+      # Load the model
+      model_fname = 'model_v1.h5'
+      model = load_model(model_fname)
 
-      return render(request, 'front/prediction.html',{'stock_title': stock_name})
+   predictions = []
+
+   # here has error : Input 0 of layer "dense" is incompatible with the layer: expected axis -1of input shape to have value 5, but received input with shape (None, 6)
+   predictions = model.predict(df)
+
+   # hardcode predictions value in a list, it works to show on screen
+   #predictions = [1,2,3,44,5,555.0,7.0,999,1000]
+   for i in range(len(predictions)):
+      prediction = Prediction(i)
+      return render(request, 'front/prediction.html',{'stock_title': stock_name, 'predictions': predictions})
 
