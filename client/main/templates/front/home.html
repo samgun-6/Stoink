@@ -1,84 +1,61 @@
 {% extends 'front/master.html' %}
 {% load static %}
 
-    {% block headblock %}
-
-        <title>{{ site.name }} | Stoink </title>
-        <meta charset="utf-8">
-
-    {% endblock %}
-
 {% block mainblock %}
-         <div class="site-blocks-cover overlay" style="background-image: url({% static 'front/images/stock.png' %});" data-aos="fade" id="home-section">
+    <div class="site-blocks-cover overlay" style="background-image: url({% static 'front/images/stock.png' %});" data-aos="fade" id="home-section">
 
       <div class="container">
         <div class="row align-items-center justify-content-center">
-
           <div class="col-md-8 mt-lg-5 text-center">
             <h1 class="text-uppercase" data-aos="fade-up">WELCOME to Stoink</h1>
-            <p class="mb-5 desc"  data-aos="fade-up" data-aos-delay="100">Are you interested in knowing stocks price in the future but have no idea? We will tell you.</p>
+            <p class="mb-5 desc"  data-aos="fade-up" data-aos-delay="100">Are you interested in knowing stocks price in 1-3 months but have no idea? We will tell you.</p>
             <div data-aos="fade-up" data-aos-delay="100">
               <a href="stock" class="btn smoothscroll btn-primary mr-2 mb-2">Forecast now!!!</a>
             </div>
           </div>
         </div>
       </div>
-
       <a href="#about-section" class="mouse smoothscroll">
         <span class="mouse-icon">
           <span class="mouse-wheel"></span>
         </span>
       </a>
     </div>
-    <div class="site-section cta-big-image" id="about-section">
-      <div class="container">
-        <div class="row mb-5">
-          <div class="col-12 text-center" data-aos="fade">
-            <h2 class="section-title mb-3">What is Stoink</h2>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6 mb-5" data-aos="fade-up" data-aos-delay="">
-          </div>
-          <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="100">
-            <div class="mb-4">
-              <h3 class="h3 mb-4 text-black"></h3>
-              <p>Stoink for Stock Price Prediction is a system that uses deep learning LSTM model to predict the price increase or decrease of one or more stocks for the next three months.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <div class="site-section cta-big-image" id="about-section">
       <div class="container">
-        <div class="row mb-5">
-          <div class="col-12 text-center" data-aos="fade">
-            <h2 class="section-title mb-3">What is LSTM </h2>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6 mb-5" data-aos="fade-up" data-aos-delay="">
-          </div>
-          <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="100">
-            <div class="mb-4">
-              <h3 class="h3 mb-4 text-black"></h3>
-                <p>The deep learning model LSTM（Long Short Term Memory) is based on RNN (Recurrent Neural Network) structure, which can remember each information throughout time series, however it has weak impact on long-term memory compared to short-term memory. RNN also exists both exploding and vanishing gradient issue that cause the model to be unstable. LSTM solves the issue that the RNN model has to do with long memory of time series. Thus, it can well describe long memories of time series in predicting stock prices.</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <section class="site-section border-bottom .mx-auto" id="team-section">
+          <section class="site-section border-bottom .mx-auto" id="team-section">
       <div class="container .mx-auto">
         <div class="row mb-5 justify-content-center">
           <div class="col-md-8 text-center">
-            <h2 class="section-title mb-3" data-aos="fade-up" data-aos-delay="">The companies </h2>
-           <p>TBA</p>
+            <h2 class="section-title mb-3" data-aos="fade-up">About Stoink </h2>
+           <h4>Stoink for Stock Price Prediction is a system that uses deep neural network(DNN) to predict the price increase or decrease in percentage of one or more stocks for the next 1-3 months.</h4>
           </div>
         </div>
       </div>
     </section>
+    </div>
 
+    <div class="site-section cta-big-image" id="about-section">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-12 text-center" data-aos="fade">
+            <h2 class="section-title mb-3">Deep Neural Network (DNN)</h2>
+                  <h4>The Deep Neural Network is based on RNN (Recurrent Neural Network) structure, which can remember each information throughout time series in predicting stock prices.</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="site-section border-bottom .mx-auto" id="team-section">
+      <div class="container .mx-auto">
+        <div class="row mb-5 justify-content-center">
+          <div class="col-md-8 text-center">
+            <h2 class="section-title mb-3" data-aos="fade-up" data-aos-delay="">The stocks </h2>
+           <h4> We choose top 199 stocks in the list of Nasdaq based on theirs last sale, net change, change in percentage, market cap, country, IPO year, volume, sector and industry. </h4>
+          </div>
+        </div>
+      </div>
+    </section>
+    </div>
 {% endblock %}
