@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 
+
 class Stock(models.Model):
 
     name = models.CharField(max_length=30)
@@ -21,32 +22,41 @@ class Stock(models.Model):
     def __str__(self):
         return self.name
 
+class Prediction:
+    price: float
 
-def train_model():
+    def __init__(self, price):
+        self.price = price
 
-    # Loading the data from CSV into panadas dataframe
-    df = pd.read_csv (r'..\data\topFiveFeats.csv', sep=',')
+'''
+# Load Data
+stocks = ['AAPL']
+
+for stock_index in range(0, len(stocks)):
+    stocks= stocks[stock_index]
+
+    df = pd.read_csv('data/topFiveFeats.csv', sep=',')
 
     # Initiating a Sequential model with keras
     model = tf.keras.models.Sequential()
 
     # Adding layers to the model
-    model.add(tf.keras.layers.Dense(units = 10, input_dim=5))
+    model.add(tf.keras.layers.Dense(units=10, input_dim=5))
     model.add(tf.keras.layers.Dropout(0.2))
     model.add(tf.keras.layers.Dense(100, activation='relu'))
     model.add(tf.keras.layers.Dense(51, activation='relu'))
-    model.add(tf.keras.layers.Dense(units = 1, activation = 'linear'))
+    model.add(tf.keras.layers.Dense(units=1, activation='linear'))
 
     # Compiling the model
     opt = tf.keras.optimizers.Adam(lr=0.005)
-    model.compile(loss = 'mean_squared_error', optimizer = opt, metrics=['accuracy'])
+    model.compile(loss='mean_squared_error', optimizer=opt, metrics=['accuracy'])
 
     # Declaring the label and features np.array
     column_features = []
     for col in df.columns:
         if col != "1m":
             column_features.append(col)
-    #column_features = ["reportedEPS","totalNonCurrentAssets","totalCurrentAssets","otherNonCurrentLiabilities", "cashflowFromFinancing"]
+    # column_features = ["reportedEPS","totalNonCurrentAssets","totalCurrentAssets","otherNonCurrentLiabilities", "cashflowFromFinancing"]
 
     # Slicing the dataset to features and labels
     y = df["1m"].to_numpy()
@@ -59,19 +69,23 @@ def train_model():
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3727)
 
     # Fitting the model
-    model.fit(X_train, y_train, epochs = 100, batch_size = 16)
+    model.fit(X_train, y_train, epochs=100, batch_size=16)
+
+    # save model
+    model_fname = 'model_v1.h5'
+    model.save(model_fname)
 
     # Code for evaluating
     # Model evaluation
-    #test_loss, test_acc = model.evaluate(X_test, y_test)
+    # test_loss, test_acc = model.evaluate(X_test, y_test)
     # Printing
-    #print('\nTest accuracy:', test_acc)
+    # print('\nTest accuracy:', test_acc)
 
     # Code for prediction
     # prediction
-    #predictions = model.predict(X_test)
-    #print(predictions)
-
+    # predictions = model.predict(X_test)
+    # print(predictions)
 
 # Dummycode, REMOVE!
 # train_model()
+'''
