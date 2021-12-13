@@ -34,14 +34,14 @@ def create_table(db):
     conn.commit()
     conn.close()
 
-def show_table(db):
+def show_table(db, name):
 
     conn = db_connection(db)
     cursor = conn.cursor()
 
     # Display columns
     print('\nColumns in Stocksdata table:')
-    data=cursor.execute('''SELECT * FROM stocksdata''')
+    data=cursor.execute(f'''SELECT * FROM "{name}"''')
     for column in data.description:
         print(column[0])
 
@@ -65,25 +65,30 @@ def drop_table(db):
     conn.commit()
     conn.close()
 
-def load_database(db, csv):
+def load_database(db, csv, name):
     df = pd.read_csv(csv)
 
     print(df.dtypes)
     conn = db_connection(db)
-    df.to_sql(name='stocksdata', con=conn, if_exists='append')
+    df.to_sql(name=f'{name}', con=conn, if_exists='replace')
 
-def show_all(db):
+def show_all(db, name):
     # Connect to database
     conn = db_connection(db)
     # Create a cursor
     cursor = conn.cursor()
 
     # Query the database
-    cursor.execute("SELECT * from stocksdata")
+    # cursor.execute(f"SELECT * FROM '{name}'")
+    cursor.execute(f"SELECT * FROM sqlite_master WHERE type='table'")
     items = cursor.fetchall()
 
-    for item in items:
-        print(item)
+    for row in items:
+        # for column in row:
+        #     print("----------------------------")
+        #     print(column)
+        print("----------------------------")
+        print(row)
     
     # Commit changes & close connection
     conn.commit()
