@@ -28,7 +28,7 @@ class Prediction:
     def __init__(self, price):
         self.price = price
 
-
+'''
 # Load Data
 stocks = ['AAPL']
 
@@ -41,7 +41,7 @@ for stock_index in range(0, len(stocks)):
     model = tf.keras.models.Sequential()
 
     # Adding layers to the model
-    model.add(tf.keras.layers.Dense(units=10, input_dim=5,input_shape=(None, 5)))
+    model.add(tf.keras.layers.Dense(units=10, input_dim=5))
     model.add(tf.keras.layers.Dropout(0.2))
     model.add(tf.keras.layers.Dense(100, activation='relu'))
     model.add(tf.keras.layers.Dense(51, activation='relu'))
@@ -88,3 +88,4 @@ for stock_index in range(0, len(stocks)):
 
 # Dummycode, REMOVE!
 # train_model()
+'''
