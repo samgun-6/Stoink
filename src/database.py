@@ -93,3 +93,23 @@ def show_all(db, name):
     # Commit changes & close connection
     conn.commit()
     conn.close()
+
+def query_stocks(db, table, symbol):
+    # Connect to database
+    conn = db_connection(db)
+    # Create a cursor
+    cursor = conn.cursor()
+
+    # Query the database
+    # cursor.execute(f"SELECT * FROM '{name}'")
+    # cursor.execute(f"SELECT * FROM EARNINGS WHERE symbol='AAPL' LIMIT 1")
+    cursor.execute(f"SELECT * FROM {table} WHERE symbol='{symbol}' GROUP BY symbol")
+    items = cursor.fetchall()
+
+
+    for row in items:
+        print(row)
+    
+    # Commit changes & close connection
+    conn.commit()
+    conn.close()
