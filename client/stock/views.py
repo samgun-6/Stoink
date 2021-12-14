@@ -13,8 +13,15 @@ from tensorflow.keras.layers import Dense, Dropout, LSTM
 #def stock(request):
    #return HttpResponse("You're at the stocks index.")
 
+manual_prediction_result = ["empty"]
+
 def stock(request):
    return render(request, 'front/stock.html')
+
+def testFunc(request):
+   manual_prediction_result = 1337.0
+   return render(request, 'front/stock.html', { 'prediction': manual_prediction_result})
+
 
 def predict(request):
    if request.method == 'POST':
