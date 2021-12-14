@@ -71,8 +71,6 @@ The client aims to present the option of using our model to predict what the inc
 ![screenshot2](screenshot/screenshot2.png)
 ![screenshot3](screenshot/screenshot3.png)
 ![screenshot4](screenshot/screenshot4.png)
-More to come 
-
 
 # Production system
 TBA
