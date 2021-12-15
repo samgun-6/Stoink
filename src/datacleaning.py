@@ -63,7 +63,7 @@ def clean_raw_data():
         CompanyCashFlow.drop(["reportedCurrency", 'symbol'], axis=1, inplace=True)
         CompanyBalanceSheet.drop(["reportedCurrency", 'symbol'], axis=1, inplace=True)
         CompanyEarnings.drop(['symbol', 'reportedDate'], axis=1, inplace=True)
-        CompanyMonthly.drop(['Symbol'], axis=1, inplace=True)
+        #CompanyMonthly.drop(['Symbol'], axis=1, inplace=True)
 
         # Cutting out unnecessary data from the CompanyMonthly
         # We only need price data in CompanyMonthly within the daterange of the 20 rows on CompanyBalanceSheet data
@@ -102,13 +102,14 @@ def clean_raw_data():
         merged_df = merged_df.replace('None', np.nan)
 
         for col in merged_df.columns:
-            if col != "timestamp":
-                if col != "1m":
-                    merged_df[col] = merged_df[col].astype("float")
-                    merged_df[col] = merged_df[col].replace(-np.inf, np.nan)
-                    merged_df[col] = merged_df[col].replace(np.inf, np.nan)
-                    merged_df[col] = merged_df[col].replace(np.nan, merged_df[col].mean())
-                    merged_df[col] = merged_df[col].pct_change(periods=-1).shift(periods=0)
+            if col != "Symbol":        
+                if col != "timestamp":
+                    if col != "1m":
+                        merged_df[col] = merged_df[col].astype("float")
+                        merged_df[col] = merged_df[col].replace(-np.inf, np.nan)
+                        merged_df[col] = merged_df[col].replace(np.inf, np.nan)
+                        merged_df[col] = merged_df[col].replace(np.nan, merged_df[col].mean())
+                        merged_df[col] = merged_df[col].pct_change(periods=-1).shift(periods=0)
         print(merged_df[cat].head(21))
 
         # adding it to the final dataframe
@@ -124,28 +125,31 @@ def clean_raw_data():
 
     # Filling out the remaining NaNs and inf with mean value of the column
     for col in final_df.columns:
-        if col != "timestamp":
-            if col != "1m":
-                final_df[col] = final_df[col].replace(-np.inf, np.nan)
-                final_df[col] = final_df[col].replace(np.inf, np.nan)
-                final_df[col] = final_df[col].replace(np.nan, final_df[col].mean())
+        if col != "Symbol":        
+            if col != "timestamp":
+                if col != "1m":
+                    final_df[col] = final_df[col].replace(-np.inf, np.nan)
+                    final_df[col] = final_df[col].replace(np.inf, np.nan)
+                    final_df[col] = final_df[col].replace(np.nan, final_df[col].mean())
 
     # deleting columns with more than 1 % nan values
     m = len(final_df)
     for col in final_df.columns:
-        if col != "1m":
-            percentageNan = ((final_df[col].isnull().sum()/m)*100)
-            print(str(col) + " has " + str(percentageNan))
+        if col != "Symbol":                    
+            if col != "1m":
+                percentageNan = ((final_df[col].isnull().sum()/m)*100)
+                print(str(col) + " has " + str(percentageNan))
 
-            if ((final_df[col].isnull().sum()/m)*100) >= 1:
-                final_df.drop(col, axis=1, inplace=True)
-                print(str(col) + " has been dropped.")
+                if ((final_df[col].isnull().sum()/m)*100) >= 1:
+                    final_df.drop(col, axis=1, inplace=True)
+                    print(str(col) + " has been dropped.")
 
     # Again filling out with the mean
     for col in final_df.columns:
-        if col != "timestamp":
-            if col != "1m":
-                final_df[col] = final_df[col].replace(np.inf, final_df[col].mean())
+        if col != "Symbol":        
+            if col != "timestamp":
+                if col != "1m":
+                    final_df[col] = final_df[col].replace(np.inf, final_df[col].mean())
 
     # Dropping rows with 1m NaN values
     final_df = final_df[final_df['1m'].notna()]
@@ -161,6 +165,7 @@ def clean_raw_data():
 
     # Export to CSV file
     df_to_export = final_df[cols_extract]
+    df_to_export["symbol"] = final_df["Symbol"]
     df_to_export.to_csv(r'../data/topFiveFeats.csv', sep= ",", index = False)
 
 # Dummycode, REMOVE!
