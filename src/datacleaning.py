@@ -6,12 +6,12 @@ import numpy as np
 def clean_raw_data():
 
     # Loading the data from CSV into pandas dataframe
-    tempIncomeStatement = pd.read_csv (r'../data/income_statement.csv', sep=',')
-    tempCashFlow = pd.read_csv (r'../data/cash_flow.csv', sep=',')
-    tempBalanceSheet = pd.read_csv (r'../data/balance-sheet.csv', sep=',')
-    tempEarnings = pd.read_csv (r'../data/EARNINGS.csv', sep=',')
-    tempMonthly = pd.read_csv (r'../data/monthly-data.csv', sep=',')
-    TickerSymbols = pd.read_csv (r'../data/nasdaq_screener_sorted_values.csv', sep=',')
+    tempIncomeStatement = pd.read_csv (r'../client/data/income_statement.csv', sep=',')
+    tempCashFlow = pd.read_csv (r'../client/data/cash_flow.csv', sep=',')
+    tempBalanceSheet = pd.read_csv (r'../client/data/balance-sheet.csv', sep=',')
+    tempEarnings = pd.read_csv (r'../client/data/EARNINGS.csv', sep=',')
+    tempMonthly = pd.read_csv (r'../client/data/monthly-data.csv', sep=',')
+    TickerSymbols = pd.read_csv (r'../client/data/nasdaq_screener_sorted_values.csv', sep=',')
 
     # renaming Balance sheet column "fiscalDateEnding" to "timestamp" to match column name on both dataframes
     tempIncomeStatement = tempIncomeStatement.rename(columns={"fiscalDateEnding": "timestamp"})
@@ -166,7 +166,11 @@ def clean_raw_data():
     # Export to CSV file
     df_to_export = final_df[cols_extract]
     df_to_export["symbol"] = final_df["Symbol"]
-    df_to_export.to_csv(r'../data/topFiveFeats.csv', sep= ",", index = False)
+    df_to_export["timestamp"] = final_df["timestamp"]
+    print(df_to_export)
+    df_to_export.to_csv(r'../client/data/topFiveFeats.csv', sep= ",", index = False)
 
 # Dummycode, REMOVE!
-# clean_raw_data()
+for i in range(1):
+    clean_raw_data()
+

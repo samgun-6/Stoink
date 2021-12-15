@@ -559,6 +559,7 @@ def predict(request):
 
       df = pd.read_csv('data/topFiveFeats.csv', sep=',')
       df.drop('1m', axis=1, inplace=True)
+      df.drop('timestamp', axis=1, inplace=True)
 
       # Load the model
       model_fname = 'model_v1.h5'
