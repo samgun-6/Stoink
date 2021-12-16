@@ -51,7 +51,8 @@ def train_model(csvfile):
     column_features = []
     for col in df.columns:
         if col != "1m":
-            column_features.append(col)
+            if col != "symbol":
+                column_features.append(col)
 
     # Slicing the dataset to features and labels
     y = df["1m"].to_numpy()
