@@ -31,7 +31,7 @@
 			<div class="form-group my-3">
 			  <label for="exampleInputEmail1">Stock list</label>
 			  <div class="input-group col-md-7">
-			  <select class="form-control" name="company_title" id="company_title">
+			  <select class="form-control" name="stock_title" id="stock_title">
 				  <option selected>Please choose a stock </option>
 				  <option value="AAPL">AAPL	Apple Inc. Common Stock</option>
 				  <option value="MSFT">MSFT	Microsoft Corporation Common Stock</option>
@@ -241,6 +241,32 @@
 			  <button type='submit' id="submit" class="btn btn-primary" >Forecast now!</button>
 			</div>
 		  </form>
+      <br>
+          <br>
+          <h2>Input values manually to make a prediction</h2>
+
+<form action="testFunc">
+  <label for="fname">reportedEPS:</label><br>
+  <input type="text" id="reportedEPS" name="Inputone" value= "0.123"><br>
+    <label for="fname">totalNonCurrentAssets:</label><br>
+  <input type="text" id="totalNonCurrentAssets" name="Inputtwo" value="0.123"><br>
+    <label for="fname">depreciation:</label><br>
+  <input type="text" id="depreciation" name="Inputthree" value="0.123"><br>
+    <label for="fname">proceedsFromRepaymentsOfShortTermDebt:</label><br>
+  <input type="text" id="proceedsFromRepaymentsOfShortTermDebt" name="Inputfour" value="0.123"><br>
+  <label for="lname">currentAccountsPayable:</label><br>
+  <input type="text" id="currentAccountsPayable" name="Inputfive" value="0.123"><br><br>
+  <input type="submit" value="Submit">
+    <div>
+    {{ prediction }}
+        <br>
+    above this should be the result in %
+    </div>
+</form>
+      <div>
+
+
+      </div>
 	  </main>
 	</div>
 
