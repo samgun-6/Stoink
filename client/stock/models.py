@@ -14,6 +14,21 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 
+class Stock(models.Model):
+
+    name = models.CharField(max_length=30)
+    txt = models.TextField(default="-")
+
+    def __str__(self):
+        return self.name
+
+class Prediction:
+    price: float
+
+    def __init__(self, price):
+        self.price = price
+
+
 def train_model(csvfile):
     file_to_read = "data/" + str(csvfile)
     df = pd.read_csv(file_to_read, sep=',')
