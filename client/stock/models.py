@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
-from django.db import models
 import pandas as pd
+from django.db import models
+from tensorflow.keras.models import Sequential, load_model
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from keras.constraints import maxnorm
@@ -13,29 +14,9 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 
-
-class Stock(models.Model):
-
-    name = models.CharField(max_length=30)
-    txt = models.TextField(default="-")
-
-    def __str__(self):
-        return self.name
-
-class Prediction:
-    price: float
-
-    def __init__(self, price):
-        self.price = price
-
-'''
-# Load Data
-stocks = ['AAPL']
-
-for stock_index in range(0, len(stocks)):
-    stocks= stocks[stock_index]
-
-    df = pd.read_csv('data/topFiveFeats.csv', sep=',')
+def train_model(csvfile):
+    file_to_read = "data/" + str(csvfile)
+    df = pd.read_csv(file_to_read, sep=',')
 
     # Initiating a Sequential model with keras
     model = tf.keras.models.Sequential()
@@ -56,7 +37,6 @@ for stock_index in range(0, len(stocks)):
     for col in df.columns:
         if col != "1m":
             column_features.append(col)
-    # column_features = ["reportedEPS","totalNonCurrentAssets","totalCurrentAssets","otherNonCurrentLiabilities", "cashflowFromFinancing"]
 
     # Slicing the dataset to features and labels
     y = df["1m"].to_numpy()
@@ -71,21 +51,24 @@ for stock_index in range(0, len(stocks)):
     # Fitting the model
     model.fit(X_train, y_train, epochs=100, batch_size=16)
 
+    # IF no model in data base (this is a function in database.py)
+    # THEN model_name = 'model_v1.h5'
+    # ELSE load last model file and read name, then increase the version increment by 1 (model_v1 --> model_v2)
+    # this gives us a new model in the database each time we run this function (train_model)
+
     # save model
-    model_fname = 'model_v1.h5'
-    model.save(model_fname)
+    model_name = 'model_v1.h5'
+    model.save(model_name)
 
-    # Code for evaluating
+def evaluate_model(model_name, X_test, y_test):
+    model = load_model(model_name)
     # Model evaluation
-    # test_loss, test_acc = model.evaluate(X_test, y_test)
-    # Printing
-    # print('\nTest accuracy:', test_acc)
+    test_loss, test_acc = model.evaluate(X_test, y_test)
+    return test_loss, test_acc
 
+def make_prediction(model_name, data):
+    model = load_model(model_name)
     # Code for prediction
-    # prediction
-    # predictions = model.predict(X_test)
-    # print(predictions)
+    prediction = model.predict(data)
+    return prediction
 
-# Dummycode, REMOVE!
-# train_model()
-'''
