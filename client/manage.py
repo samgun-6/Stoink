@@ -5,6 +5,8 @@ import sys
 
 
 def main():
+    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+    sys.argv[0] = 'manage.py'
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'webapp.settings')
     try:
         from django.core.management import execute_from_command_line
