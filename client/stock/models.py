@@ -15,13 +15,13 @@ import tensorflow as tf
 from tensorflow.keras.models import Sequential
 
 
-class Stock(models.Model):
+class AiModel(models.Model):
 
-    name = models.CharField(max_length=30)
-    txt = models.TextField(default="-")
+    title = models.CharField(max_length=30)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return self.title
 
 
 class Prediction:
@@ -29,6 +29,7 @@ class Prediction:
 
     def __init__(self, price):
         self.price = price
+
 
 
 def train_model(csvfile):
