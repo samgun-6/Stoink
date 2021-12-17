@@ -19,16 +19,22 @@ class AiModelAdmin(admin.ModelAdmin):
 
     def get_urls(self):
         urls = super().get_urls()
-        new_urls = [path("upload-csv/", self.upload_csv)]
+        new_urls = [path("upload-model/", self.upload_model)]
         return new_urls + urls
 
-    def upload_csv(self, request):
+
+    def upload_model(self, request):
 
         if request.method == "POST":
-            print("action is post")
+            model_file = request.FILES["csv_upload"]
+            file_data = model_file.read().decode("utf-8")
+            print(file_data)
+            model_data = file_data.split("/n")
+            print("sucessfully imported the csv file")
+            print(model_data)
         form = CsvImportForm()
         data = {"form": form}
-        return render(request, "admin/csv_upload.html", data)
+        return render(request, "admin/model_upload.html", data)
 
 
 admin.site.register(AiModel, AiModelAdmin)
