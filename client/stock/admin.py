@@ -32,4 +32,3 @@ class AiModelAdmin(admin.ModelAdmin):
 
 
 admin.site.register(AiModel, AiModelAdmin)
-admin.site.register(CsvImportForm)
