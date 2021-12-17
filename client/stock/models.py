@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 
+
 class Stock(models.Model):
 
     name = models.CharField(max_length=30)
@@ -21,6 +22,7 @@ class Stock(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Prediction:
     price: float
@@ -52,7 +54,8 @@ def train_model(csvfile):
     for col in df.columns:
         if col != "1m":
             if col != "symbol":
-                column_features.append(col)
+                if col != "timestamp":
+                    column_features.append(col)
 
     # Slicing the dataset to features and labels
     y = df["1m"].to_numpy()
@@ -87,4 +90,3 @@ def make_prediction(model_name, data):
     # Code for prediction
     prediction = model.predict(data)
     return prediction
-
