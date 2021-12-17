@@ -13,8 +13,28 @@ from tensorflow.keras.layers import Dense, Dropout, LSTM
 #def stock(request):
    #return HttpResponse("You're at the stocks index.")
 
+
 def stock(request):
    return render(request, 'front/stock.html')
+
+def testFunc(request):
+   if request.method == 'GET':
+      # Get all the values from input form
+      var1 = (float(request.GET['Inputone']))
+      var2 = (float(request.GET['Inputtwo']))
+      var3 = (float(request.GET['Inputthree']))
+      var4 = (float(request.GET['Inputfour']))
+      var5 = (float(request.GET['Inputfive']))
+      # coverting data into dataframe (from dict)
+      df = pd.DataFrame({'1': var1, '2': var2, '3': var3, '4': var4, '5': var5}, index=[0])
+      # Load the model and predicting
+      model_fname = 'model_v1.h5'
+      model = load_model(model_fname)
+      prediction = str(model.predict(df))
+   else:
+      prediction = "error something wrong with posting the data"
+   return render(request, 'front/stock.html', {'prediction': prediction})
+
 
 def predict(request):
    if request.method == 'POST':
@@ -539,6 +559,8 @@ def predict(request):
 
       df = pd.read_csv('data/topFiveFeats.csv', sep=',')
       df.drop('1m', axis=1, inplace=True)
+      df.drop('timestamp', axis=1, inplace=True)
+      df.drop('symbol', axis=1, inplace=True)
 
       # Load the model
       model_fname = 'model_v1.h5'
