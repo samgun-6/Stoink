@@ -24,14 +24,13 @@
 		<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 		  <h1 class="h2">STOINK Stock Price Prediction System </h1>
 		</div>
-
 		<h3>Select a company's stock that you want to know future price</h3>
 		  <form method="post" action="predict">
 			{% csrf_token %}
 			<div class="form-group my-3">
 			  <label for="exampleInputEmail1">Stock list</label>
 			  <div class="input-group col-md-7">
-			  <select class="form-control" name="stock_title" id="stock_title">
+			  <select class="form-control" name="stock_title" id="stock_title" onchange="getAccuracy()">
 				  <option selected>Please choose a stock </option>
 				  <option value="AAPL">AAPL	Apple Inc. Common Stock</option>
 				  <option value="MSFT">MSFT	Microsoft Corporation Common Stock</option>
@@ -236,11 +235,18 @@
 			  </select>
 			  </div>
 			</div>
-
+              <div class="form-group">
+				<h4 style="color: green">Accuracy of model: </h4>
+				<h4 id="percentAccuracy" style="color: green"></h4>
+			  </div>
 			<div class="form-group">
 			  <button type='submit' id="submit" class="btn btn-primary" >Forecast now!</button>
 			</div>
 		  </form>
+          <form method="post" action="allstocks">
+			{% csrf_token %}
+              <button class="btn btn-primary">See all stocks</button>
+          </form>
       <br>
           <br>
           <h2>Input values manually to make a prediction</h2>
@@ -251,12 +257,12 @@
     <label for="fname">totalNonCurrentAssets:</label><br>
   <input type="text" id="totalNonCurrentAssets" name="Inputtwo" value="0.123"><br>
     <label for="fname">depreciation:</label><br>
-  <input type="text" id="depreciation" name="Inputthree" value="0.123"><br>
+  <input type="text" id="depreciation" name="Inputthree" value="0.123"> <br>
     <label for="fname">proceedsFromRepaymentsOfShortTermDebt:</label><br>
   <input type="text" id="proceedsFromRepaymentsOfShortTermDebt" name="Inputfour" value="0.123"><br>
   <label for="lname">currentAccountsPayable:</label><br>
   <input type="text" id="currentAccountsPayable" name="Inputfive" value="0.123"><br><br>
-  <input type="submit" value="Submit">
+  <input type="submit" value="Submit" class="btn btn-primary">
     <div>
     {{ prediction }}
         <br>
@@ -264,11 +270,20 @@
     </div>
 </form>
       <div>
-
-
       </div>
 	  </main>
 	</div>
-
   </div>
   {% endblock %}
+
+    <script>
+    function getAccuracy() {
+        d = document.getElementById("stock_title").value;
+
+       accuracy = "12.00%";
+
+        document.getElementById("percentAccuracy").innerHTML = accuracy;
+    }
+    </script>
+  </body>
+</html>
