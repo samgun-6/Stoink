@@ -25,7 +25,6 @@ The free API version is limited to 5 requests per minute and 500 total per day.
 - Django
 - Bootstrap3
 - CSS
-- LSTM
 
 # Features 
 TBA 
@@ -71,6 +70,8 @@ The client aims to present the option of using our model to predict what the inc
 ![screenshot2](screenshot/screenshot2.png)
 ![screenshot3](screenshot/screenshot3.png)
 ![screenshot4](screenshot/screenshot4.png)
+![screenshot5](screenshot/screenshot5.png)
+![screenshot6](screenshot/screenshot6.png)
 
 # Production system
 TBA
