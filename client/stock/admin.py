@@ -15,13 +15,12 @@ class CsvImportForm(forms.Form):
 
 
 class AiModelAdmin(admin.ModelAdmin):
-    list_display = ("title", "created")
+    list_display = ("title", "created", "loss", "accuracy", "learningrate", "inputlayer", "dropout", "secondlayer", "thirdlayer", "epochs", "batchsize", "split")
 
     def get_urls(self):
         urls = super().get_urls()
         new_urls = [path("upload-model/", self.upload_model)]
         return new_urls + urls
-
 
     def upload_model(self, request):
 
