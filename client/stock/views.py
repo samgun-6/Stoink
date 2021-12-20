@@ -576,3 +576,36 @@ def predict(request):
       #prediction = Prediction(i)
    return render(request, 'front/prediction.html',{'stock_title': stock_name, 'predictions': predictions})
 
+
+def allstocks(request):
+   if request.method == 'POST':
+    allstocks = ["AAPL","MSFT","GOOG","GOOGL",'AMZN',
+'TSLA','FB','NVDA','TSM','JPM','V','JNJ','UNH','HD','ADI','BAC','WMT','BABA','ASML','PG',
+'MA','ADBE','NFLX','NTES','CRM','PFE','DIS','NKE','XOM','NVO', 'ORCL','TM','TMO','LLY','CMCSA',
+'KO','PYPL', 'AVGO','ACN','COST', 'ABT', 'PEP','DHR','CVX', 'CSCO','VZ', 'MRK', 'ABBV',
+'SHOP', 'QCOM', 'INTC', 'WFC', 'MCD','AMD','NVS','UPS','INTU','TXN', 'AZN', 'T',
+ 'SE','MS','NEE','LOW','LIN', 'SAP',  'ANET',  'MDT', 'SONY', 'SCHW', 'UNP', 'HON',
+ 'RY','TMUS', 'PM',  'BLK', 'AMAT', 'CHTR','AXP','NOW', 'JD', 'UL', 'TD',  'BA',
+  'BMY', 'SBUX', 'C', 'BHP', 'HDB', 'RTX', 'GS', 'TTE', 'ISRG', 'BBL', 'SNY',
+ 'EL','CVS','TGT','DEO','HSBC',  'SNOW', 'ABNB','AMT',  'AMGN', 'DE', 'SPGI', 'PLD',
+'RIVN','TEAM','GE','CAT','SQ', 'ZTS', 'PDD', 'ANTM', 'GSK', 'BX', 'MMM', 'BUD','MRNA',
+  'ADP',  'INFY', 'SYK','RIO', 'BKNG', 'COP', 'LMT','BAM','GM','CNI', 'BP','LRCX',
+   'SHW','MDLZ','COIN','USB','TJX','MU','IBM','PNC','UBER','SNAP','GILD',
+   'MMC','EQNR','CB', 'PTR', 'TFC', 'MO', 'CME','ENB','BTI','CCI',
+   'BNS','CSX', 'F', 'DASH', 'RBLX','ICE', 'ZM', 'DUK', 'ITW', 'HCA', 'LCID',
+   'WDAY','MCO','EW','CI','BDX', 'MELI', 'EQIX','MUFG','ADSK','BMO','ABB','IBN',
+   'WM','REGN','ETN','NET','FIS', 'NSC','APD', 'ECL', 'FISV', 'BNTX', 'SO', 'RACE','CL',
+   'AON','FDX', 'COF', 'DXCM', 'PBR', 'KLAC', 'STLA','NIO','UBS','CRWD','MRVL']
+
+   df = pd.read_csv('data/topFiveFeats.csv', sep=',')
+   df.drop('1m', axis=1, inplace=True)
+   df.drop('timestamp', axis=1, inplace=True)
+   df.drop('symbol', axis=1, inplace=True)
+   # Load the model
+   model_fname = 'model_v1.h5'
+   model = load_model(model_fname)
+
+   predictions = model.predict(df)
+
+   return render(request, 'front/allstocks.html',{ 'allstocks': allstocks,'predictions': predictions})
+
