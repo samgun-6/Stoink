@@ -7,6 +7,7 @@ from sklearn import preprocessing
 import tensorflow as tf
 
 
+
 class AiModel(models.Model):
     # Title is also the name of the file that holds the model, which we load from the repo as a .h5 file
     title = models.CharField(max_length=30)
@@ -21,6 +22,7 @@ class AiModel(models.Model):
     epochs = models.IntegerField(default=100)
     batchsize = models.IntegerField(default=16)
     split = models.FloatField(default=0.3727)
+    version = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -34,6 +36,7 @@ class AiModel(models.Model):
     def train_model(self, file_name):
         file_to_read = "data/" + str(file_name)
         df = pd.read_csv(file_to_read, sep=',')
+        #CLEAN DATAset!!!!!!!!!!
 
         # Randomly shuffles the rows, better for training the model later
         # Also resetting the Index for the dataframe
@@ -82,6 +85,9 @@ class AiModel(models.Model):
         # save model
         model_name = str(self.title)
         model.save(model_name)
+
+        # Updating the version of the model
+        self.version = self.version + 1
 
     def evaluate_model(self, X_test, y_test):
         model = load_model(self.title)
