@@ -31,10 +31,13 @@ class Prediction:
         self.price = price
 
 
-
 def train_model(csvfile):
     file_to_read = "data/" + str(csvfile)
     df = pd.read_csv(file_to_read, sep=',')
+
+    # Randomly shuffles the rows, better for training the model later
+    # Also resetting the Index for the dataframe
+    df = df.sample(frac=1).reset_index(drop=True)
 
     # Initiating a Sequential model with keras
     model = tf.keras.models.Sequential()

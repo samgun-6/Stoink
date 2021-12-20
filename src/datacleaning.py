@@ -121,7 +121,7 @@ def clean_raw_data():
 
     # Randomly shuffles the rows, better for training the model later
     # Also resetting the Index for the dataframe
-    final_df = final_df.sample(frac=1).reset_index(drop=True)
+#    final_df = final_df.sample(frac=1).reset_index(drop=True)
 
     # Filling out the remaining NaNs and inf with mean value of the column
     for col in final_df.columns:
@@ -136,13 +136,14 @@ def clean_raw_data():
     m = len(final_df)
     for col in final_df.columns:
         if col != "Symbol":                    
-            if col != "1m":
-                percentageNan = ((final_df[col].isnull().sum()/m)*100)
-                print(str(col) + " has " + str(percentageNan))
+            if col != "timestamp":
+                if col != "1m":
+                    percentageNan = ((final_df[col].isnull().sum()/m)*100)
+                    print(str(col) + " has " + str(percentageNan))
 
-                if ((final_df[col].isnull().sum()/m)*100) >= 1:
-                    final_df.drop(col, axis=1, inplace=True)
-                    print(str(col) + " has been dropped.")
+                    if ((final_df[col].isnull().sum()/m)*100) >= 1:
+                        final_df.drop(col, axis=1, inplace=True)
+                        print(str(col) + " has been dropped.")
 
     # Again filling out with the mean
     for col in final_df.columns:

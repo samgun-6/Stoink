@@ -3,7 +3,6 @@ from django.contrib.auth.models import Group
 from django.forms import forms
 from django.shortcuts import render
 from django.urls import path
-
 from .models import AiModel
 
 admin.site.site_header = "Admin page for managing training, loading, evaluating models etc."
