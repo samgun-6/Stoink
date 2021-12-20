@@ -7,6 +7,19 @@ from sklearn import preprocessing
 import tensorflow as tf
 
 
+class DataSetModel(models.Model):
+    title = models.CharField(max_length=30)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+    def get_title(self):
+        return self.title
+
+    def set_title(self, title):
+        self.title = title
+
 
 class AiModel(models.Model):
     # Title is also the name of the file that holds the model, which we load from the repo as a .h5 file
