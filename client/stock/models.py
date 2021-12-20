@@ -7,7 +7,7 @@ from sklearn import preprocessing
 import tensorflow as tf
 
 
-class DataSetModel(models.Model):
+class DataSet(models.Model):
     title = models.CharField(max_length=30)
     created = models.DateTimeField(auto_now_add=True)
 

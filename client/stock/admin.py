@@ -3,7 +3,7 @@ from django.contrib.auth.models import Group
 from django.forms import forms
 from django.shortcuts import render
 from django.urls import path
-from .models import AiModel, DataSetModel
+from .models import AiModel, DataSet
 
 admin.site.site_header = "Admin page for managing training, loading, evaluating models etc."
 admin.site.unregister(Group)
@@ -13,7 +13,7 @@ class CsvImportForm(forms.Form):
     csv_upload = forms.FileField()
 
 
-class DataSetModelAdmin(admin.ModelAdmin):
+class DataSetAdmin(admin.ModelAdmin):
     list_display = ("title", "created",)
 
     def get_urls(self):
@@ -60,4 +60,4 @@ class AiModelAdmin(admin.ModelAdmin):
 
 
 admin.site.register(AiModel, AiModelAdmin)
-admin.site.register(DataSetModel, DataSetModelAdmin)
+admin.site.register(DataSet, DataSetAdmin)
