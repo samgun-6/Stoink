@@ -7,7 +7,6 @@ from sklearn import preprocessing
 import tensorflow as tf
 
 
-
 class DataSet(models.Model):
     title = models.CharField(max_length=30)
     created = models.DateTimeField(auto_now_add=True)
@@ -33,6 +32,16 @@ class Row(models.Model):
     timestamp = models.CharField(max_length=30)
     dataset = models.ForeignKey(DataSet, on_delete=models.CASCADE)
 
+    def get_data_prediction(self):
+        list_of_data = [self.label, self.reportedEPS, self.totalNonCurrentAssets, self.depreciation, self.proceedsFromRepaymentsOfShortTermDebt
+                        , self.currentAccountsPayable]
+        return list_of_data
+
+    def get_all_data(self):
+        list_of_data = [str(self.label), str(self.reportedEPS), str(self.totalNonCurrentAssets), str(self.depreciation),
+                        str(self.proceedsFromRepaymentsOfShortTermDebt)
+            , str(self.currentAccountsPayable), str(self.symbol), str(self.timestamp)]
+        return list_of_data
 
 class AiModel(models.Model):
     # Title is also the name of the file that holds the model, which we load from the repo as a .h5 file
