@@ -39,23 +39,17 @@ class DataSetAdmin(admin.ModelAdmin):
             column = file_data.split("\r\n", 1)
             column = str(column[0])
             column = column.split(",", 8)
-            #print("-------- COLUMN _______")
-            #print(column)
-            #print(type(column))
-            #testing to dataframe
-            #print("-------- DATAFRAME _______")
+
             # converting the string into a dataframe to be able to save as json object (attribute of DataSet model)
             data = file_data
             df = pd.DataFrame(data=[x.split(',') for x in data.split('\r\n')])
+            #deleting first row, for some realson after above function, it adds the column names as first data row....
             df = df.iloc[1:, :]
             # Assiging the right column names
-            df.columns= column
-            #print(df)
+            df.columns = column
 
             tempModel.putframe(df)
             tempModel.save()
-            #print(tempModel.title)
-            #print(tempModel.data)
         form = CsvImportForm()
         data = {"form": form}
         return render(request, "admin/dataset_upload.html", data)
