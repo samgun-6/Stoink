@@ -11,7 +11,7 @@ import tensorflow as tf
 class DataSet(models.Model):
     title = models.CharField(max_length=30)
     created = models.DateTimeField(auto_now_add=True)
-    data = JSONField()
+    data = JSONField(default='This is empty')
 
     def putframe(self, cls, dataframe):
         storeddataframe = cls(data=dataframe.to_json(orient='split'))

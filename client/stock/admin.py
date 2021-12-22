@@ -3,7 +3,10 @@ from django.contrib.auth.models import Group
 from django.forms import forms
 from django.shortcuts import render
 from django.urls import path
+
+from . import models
 from .models import AiModel, DataSet
+#from .admin import AiModelAdmin, DataSetAdmin
 
 admin.site.site_header = "Admin page for managing training, loading, evaluating models etc."
 admin.site.unregister(Group)
@@ -25,35 +28,19 @@ class DataSetAdmin(admin.ModelAdmin):
         if request.method == "POST":
             model_file = request.FILES["csv_upload"]
             file_data = model_file.read().decode("utf-8")
-            print(file_data)
-            model_data = file_data.split("/n")
-            print("sucessfully imported the csv file")
-            print(model_data)
+            tempModel = models.DataSet()
+            tempModel.title = model_file
+            tempModel.data = file_data
+            tempModel.save()
+            print(tempModel.title)
+            print(tempModel.data)
         form = CsvImportForm()
         data = {"form": form}
-        return render(request, "admin/model_upload.html", data)
+        return render(request, "admin/dataset_upload.html", data)
 
 
 class AiModelAdmin(admin.ModelAdmin):
     list_display = ("title", "version", "created", "loss", "accuracy", "learningrate", "inputlayer", "dropout", "secondlayer", "thirdlayer", "epochs", "batchsize", "split")
-
-    def get_urls(self):
-        urls = super().get_urls()
-        new_urls = [path("upload-model/", self.upload_model)]
-        return new_urls + urls
-
-    def upload_model(self, request):
-
-        if request.method == "POST":
-            model_file = request.FILES["csv_upload"]
-            file_data = model_file.read().decode("utf-8")
-            print(file_data)
-            model_data = file_data.split("/n")
-            print("sucessfully imported the csv file")
-            print(model_data)
-        form = CsvImportForm()
-        data = {"form": form}
-        return render(request, "admin/model_upload.html", data)
 
     def train_model(self, request):
         return render(request, "admin/model_upload.html", data)
