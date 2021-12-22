@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 import pandas as pd
+from django.contrib.postgres.fields import JSONField
 from django.db import models
 from tensorflow.keras.models import Sequential, load_model
 from sklearn.model_selection import train_test_split
@@ -10,6 +11,15 @@ import tensorflow as tf
 class DataSet(models.Model):
     title = models.CharField(max_length=30)
     created = models.DateTimeField(auto_now_add=True)
+    data = JSONField()
+
+    def putframe(self, cls, dataframe):
+        storeddataframe = cls(data=dataframe.to_json(orient='split'))
+        storeddataframe.save()
+        return storeddataframe
+
+    def loadframe(self):
+        return pd.read_json(self.data, orient='split')
 
     def __str__(self):
         return self.title
@@ -21,27 +31,27 @@ class DataSet(models.Model):
         self.title = title
 
 
-class Row(models.Model):
-    label = models.FloatField(default=0.0)
-    reportedEPS = models.FloatField(default=0.0)
-    totalNonCurrentAssets = models.FloatField(default=0.0)
-    depreciation = models.FloatField(default=0.0)
-    proceedsFromRepaymentsOfShortTermDebt = models.FloatField(default=0.0)
-    currentAccountsPayable = models.FloatField(default=0.0)
-    symbol = models.CharField(max_length=30)
-    timestamp = models.CharField(max_length=30)
-    dataset = models.ForeignKey(DataSet, on_delete=models.CASCADE)
+#class Row(models.Model):
+#    label = models.FloatField(default=0.0)
+#    reportedEPS = models.FloatField(default=0.0)
+#    totalNonCurrentAssets = models.FloatField(default=0.0)
+#    depreciation = models.FloatField(default=0.0)
+#    proceedsFromRepaymentsOfShortTermDebt = models.FloatField(default=0.0)
+#    currentAccountsPayable = models.FloatField(default=0.0)
+#    symbol = models.CharField(max_length=30)
+#    timestamp = models.CharField(max_length=30)
+#    dataset = models.ForeignKey(DataSet, on_delete=models.CASCADE)
 
-    def get_data_prediction(self):
-        list_of_data = [self.label, self.reportedEPS, self.totalNonCurrentAssets, self.depreciation, self.proceedsFromRepaymentsOfShortTermDebt
-                        , self.currentAccountsPayable]
-        return list_of_data
+ #   def get_data_prediction(self):
+#        list_of_data = [self.label, self.reportedEPS, self.totalNonCurrentAssets, self.depreciation, self.proceedsFromRepaymentsOfShortTermDebt
+#                        , self.currentAccountsPayable]
+#        return list_of_data
 
-    def get_all_data(self):
-        list_of_data = [str(self.label), str(self.reportedEPS), str(self.totalNonCurrentAssets), str(self.depreciation),
-                        str(self.proceedsFromRepaymentsOfShortTermDebt)
-            , str(self.currentAccountsPayable), str(self.symbol), str(self.timestamp)]
-        return list_of_data
+#    def get_all_data(self):
+#        list_of_data = [str(self.label), str(self.reportedEPS), str(self.totalNonCurrentAssets), str(self.depreciation),
+#                        str(self.proceedsFromRepaymentsOfShortTermDebt)
+#            , str(self.currentAccountsPayable), str(self.symbol), str(self.timestamp)]
+#        return list_of_data
 
 class AiModel(models.Model):
     # Title is also the name of the file that holds the model, which we load from the repo as a .h5 file
