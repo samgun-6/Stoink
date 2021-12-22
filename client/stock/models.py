@@ -13,10 +13,8 @@ class DataSet(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     data = JSONField(default='This is empty')
 
-    def putframe(self, cls, dataframe):
-        storeddataframe = cls(data=dataframe.to_json(orient='split'))
-        storeddataframe.save()
-        return storeddataframe
+    def putframe(self, dataframe):
+        self.data = dataframe.to_json(orient='split')
 
     def loadframe(self):
         return pd.read_json(self.data, orient='split')
