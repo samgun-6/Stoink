@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 import pandas as pd
+from django.contrib.postgres.fields import JSONField
 from django.db import models
 from tensorflow.keras.models import Sequential, load_model
 from sklearn.model_selection import train_test_split
@@ -7,6 +8,48 @@ from sklearn import preprocessing
 import tensorflow as tf
 
 
+class DataSet(models.Model):
+    title = models.CharField(max_length=30)
+    created = models.DateTimeField(auto_now_add=True)
+    data = JSONField(default='This is empty')
+
+    def putframe(self, dataframe):
+        self.data = dataframe.to_json(orient='split')
+
+    def loadframe(self):
+        return pd.read_json(self.data, orient='split')
+
+    def __str__(self):
+        return self.title
+
+    def get_title(self):
+        return self.title
+
+    def set_title(self, title):
+        self.title = title
+
+
+#class Row(models.Model):
+#    label = models.FloatField(default=0.0)
+#    reportedEPS = models.FloatField(default=0.0)
+#    totalNonCurrentAssets = models.FloatField(default=0.0)
+#    depreciation = models.FloatField(default=0.0)
+#    proceedsFromRepaymentsOfShortTermDebt = models.FloatField(default=0.0)
+#    currentAccountsPayable = models.FloatField(default=0.0)
+#    symbol = models.CharField(max_length=30)
+#    timestamp = models.CharField(max_length=30)
+#    dataset = models.ForeignKey(DataSet, on_delete=models.CASCADE)
+
+ #   def get_data_prediction(self):
+#        list_of_data = [self.label, self.reportedEPS, self.totalNonCurrentAssets, self.depreciation, self.proceedsFromRepaymentsOfShortTermDebt
+#                        , self.currentAccountsPayable]
+#        return list_of_data
+
+#    def get_all_data(self):
+#        list_of_data = [str(self.label), str(self.reportedEPS), str(self.totalNonCurrentAssets), str(self.depreciation),
+#                        str(self.proceedsFromRepaymentsOfShortTermDebt)
+#            , str(self.currentAccountsPayable), str(self.symbol), str(self.timestamp)]
+#        return list_of_data
 
 class AiModel(models.Model):
     # Title is also the name of the file that holds the model, which we load from the repo as a .h5 file
@@ -27,8 +70,9 @@ class AiModel(models.Model):
     def __str__(self):
         return self.title
 
-    def get_title(self):
-        return self.title
+    def get_titleversion(self):
+        temp = self.title + str(self.version)
+        return temp
 
     def set_title(self, title):
         self.title = title
@@ -77,17 +121,13 @@ class AiModel(models.Model):
         # Fitting the model
         model.fit(X_train, y_train, epochs=self.epochs, batch_size=self.batchsize)
 
-        # IF no model in data base (this is a function in database.py)
-        # THEN model_name = 'model_v1.h5'
-        # ELSE load last model file and read name, then increase the version increment by 1 (model_v1 --> model_v2)
-        # this gives us a new model in the database each time we run this function (train_model)
-
-        # save model
-        model_name = str(self.title)
-        model.save(model_name)
-
         # Updating the version of the model
         self.version = self.version + 1
+
+        # save model
+        # Maybe we need to add .h5 to be able to save it?
+        print(self.get_titleversion())
+        model.save(self.get_titleversion())
 
     def evaluate_model(self, X_test, y_test):
         model = load_model(self.title)
@@ -102,7 +142,6 @@ class AiModel(models.Model):
         # Code for prediction
         prediction = model.predict(data)
         return prediction
-
 
 
 class Prediction:
