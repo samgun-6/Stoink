@@ -31,9 +31,10 @@ def testFunc(request):
       model_fname = 'model_v1.h5'
       model = load_model(model_fname)
       prediction = str(model.predict(df))
+      prediction_in_percentage = float(prediction[2:12]) * 100
    else:
       prediction = "error something wrong with posting the data"
-   return render(request, 'front/stock.html', {'prediction': prediction})
+   return render(request, 'front/stock.html', {'prediction': '%.4f%%'% prediction_in_percentage})
 
 
 def predict(request):
@@ -566,15 +567,15 @@ def predict(request):
       model_fname = 'model_v1.h5'
       model = load_model(model_fname)
 
-   #predictions = []
 
-   predictions = model.predict(df)
+   predictions = str(model.predict(df))
+   predictions_in_percentage = float(predictions[2:12]) *100
 
    # hardcode predictions value in a list, it works to show on screen
    #predictions = [1,2,3,44,5,555.0,7.0,999,1000]
    #for i in range(len(predictions)):
       #prediction = Prediction(i)
-   return render(request, 'front/prediction.html',{'stock_title': stock_name, 'predictions': predictions})
+   return render(request, 'front/prediction.html',{'stock_title': stock_name, 'predictions': '%.4f%%'% predictions_in_percentage})
 
 
 def allstocks(request):
@@ -605,7 +606,7 @@ def allstocks(request):
    model_fname = 'model_v1.h5'
    model = load_model(model_fname)
 
-   predictions = model.predict(df)
+   predictions = str(model.predict(df))
 
    return render(request, 'front/allstocks.html',{ 'allstocks': allstocks,'predictions': predictions})
 

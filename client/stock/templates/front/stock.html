@@ -243,10 +243,6 @@
 			  <button type='submit' id="submit" class="btn btn-primary" >Forecast now!</button>
 			</div>
 		  </form>
-          <form method="post" action="allstocks">
-			{% csrf_token %}
-              <button class="btn btn-primary">See all stocks</button>
-          </form>
       <br>
           <br>
           <h2>Input values manually to make a prediction</h2>
@@ -263,11 +259,7 @@
   <label for="lname">currentAccountsPayable:</label><br>
   <input type="text" id="currentAccountsPayable" name="Inputfive" value="0.123"><br><br>
   <input type="submit" value="Submit" class="btn btn-primary">
-    <div>
-    {{ prediction }}
-        <br>
-    above this should be the result in %
-    </div>
+    <h3>The forecast increase for these input values is: {{ prediction }}. </h3>
 </form>
       <div>
       </div>
