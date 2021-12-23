@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stoink-deploy
+  labels:
+    app: stoink
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stoink
+  template:
+    metadata:
+      labels:
+        app: stoink
+    spec:
+      containers:
+        - name: flying-duck
+          image: samgun6/stoink:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 8000
+
