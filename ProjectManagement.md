@@ -256,9 +256,64 @@ merging Dev into main.<br>
 Standup.<br>
 Decide which model to use.<br>
 
+#### **Meeting 8/12**.
+
+**Missing:**<br>
+None.<br>
+
+**Discussions:**<br>
+What task are left to focus on.<br>
+Discussion about testing.<br>
+
+
+
+**Decisions:**<br>
+Discarding the idea of LSTM.<br>
+Ask Ta about, Testing and model types.<br>
+
+
+
+| Task        | Responsible |
+| ----------- | ----------- |
+| Start and experiment with model      | All members      |
+
+
+**Agenda for next meeting 6/12:**<br>
+Standup.<br>
+Decide on a model and deploy it for now.<br>
+Check Assignment description and add tasks accodring.<br>
+
+
+#### **Extra Meeting 10/12**.
+
+**Missing:**<br>
+None.<br>
+
+**Discussions:**<br>
+What task are left to focus on.<br>
+Discussion about testing.<br>
+
+
+**Decisions:**<br>
+made task cards i trello from the remaining requirments.<br>
+Decide on a intial model to deploy.<br>
+
+
+
+| Task        | Responsible |
+| ----------- | ----------- |
+| Start and experiment with model      | All members      |
+
+
+**Agenda for next meeting 6/12:**<br>
+Standup.<br>
+Decide on a model and deploy it for now.<br>
+Check Assignment description and add tasks accodring.<br>
+
+
+
 ---
 ### **Week 50**
-
 
 
 
