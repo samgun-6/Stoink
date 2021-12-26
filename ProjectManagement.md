@@ -252,7 +252,7 @@ merging Dev into main.<br>
 | Add market category as aa feature to the dataset  | Eric Hallberg        |
 
 
-**Agenda for next meeting 6/12:**<br>
+**Agenda for next meeting 8/12:**<br>
 Standup.<br>
 Decide which model to use.<br>
 
@@ -278,7 +278,7 @@ Ask Ta about, Testing and model types.<br>
 | Start and experiment with model      | All members      |
 
 
-**Agenda for next meeting 6/12:**<br>
+**Agenda for next meeting 10/12:**<br>
 Standup.<br>
 Decide on a model and deploy it for now.<br>
 Check Assignment description and add tasks accodring.<br>
@@ -305,7 +305,7 @@ Decide on a intial model to deploy.<br>
 | Start and experiment with model      | All members      |
 
 
-**Agenda for next meeting 6/12:**<br>
+**Agenda for next meeting 13/12:**<br>
 Standup.<br>
 Decide on a model and deploy it for now.<br>
 Check Assignment description and add tasks accodring.<br>
@@ -314,13 +314,107 @@ Check Assignment description and add tasks accodring.<br>
 
 ---
 ### **Week 50**
+#### **Meeting 13/12**.
 
+**Missing:**<br>
+Effat Mahmud Enti.<br>
+
+**Discussions:**<br>
+datastorage, store clean or raw data in db.<br>
+discussing the meaning of dunamic training of model via admin page.<br>
+How good does the model need to be.<br>
+
+
+
+**Decisions:**<br>
+Ask TA about the 3 things we discussed.<br>
+
+
+
+| Task        | Responsible |
+| ----------- | ----------- |
+| '   |       |
+
+
+**Agenda for next meeting 15/12:**<br>
+Standup.<br>
+
+
+#### **Meeting 15/12**.
+
+**Missing:**<br>
+Zhijie Wei.<br>
+
+**Discussions:**<br>
+Planning the structure for the fair presentation.<br>
+What is left to do.<br>
+
+**Decisions:**<br>
+splitting the presentation between the members<br>
+
+
+
+| Task        | Responsible |
+| ----------- | ----------- |
+| Idea, Data Source, Architecture   |  Samuel Gunnarsson      |
+| Fronted, To Do, Obstacles   |  Effat Mahmud Enti      |
+| Data Processing, Ml pipeline, Live Demo   |  Eric Hallberg     |
+
+
+**Agenda for next meeting 20/12:**<br>
+Standup.<br>
 
 
 ---
 ### **Week 51**
 
+#### **Meeting 20/12**.
 
+**Missing:**<br>
+Effat Mahmud Enti.<br>
+
+**Discussions:**<br>
+Planning the structure for the fair presentation.<br>
+What is left to do.<br>
+
+**Decisions:**<br>
+Moving Wednesday 22/12 meeting to 09:00.<br>
+
+
+| Task        | Responsible |
+| ----------- | ----------- |
+| loading and saving the model as Django model   |  Eric Hallberg     |
+| Setup basic Admin page   |  Eric Hallberg     |
+
+
+**Agenda for next meeting 22/12:**<br>
+Standup.<br>
+
+#### **Meeting 22/12**.
+
+**Missing:**<br>
+Effat Mahmud Enti.<br>
+
+**Discussions:**<br>
+Dividing more tasks<br>
+
+**Decisions:**<br>
+Keep meetings as usual during the holidays.<br>
+
+
+| Task        | Responsible |
+| ----------- | ----------- |
+| Upload via admin page an CSv file with cleaned data  |  Eric Hallberg     |
+| add func to deploy a model, with deployment button in admin page   |  Eric Hallberg     |
+| add evaluate and retrain func with buttons in admin page   |  Eric Hallberg     |
+| fix price into percentage value in stock and all stocks page   |  Zhiijie Wei     |
+| Deploy system on kubernetes   |  Samuel Gunnarsson     |
+| Load data into Django models & query the database |  Samuel Gunnarsson     |
+
+
+
+**Agenda for next meeting 27/12:**<br>
+Standup.<br>
 
 
 ---
