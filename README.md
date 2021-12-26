@@ -44,19 +44,20 @@ in your project.
 - Install pip3 via following command:
 `(base)$ pip3 install django `
 
-## Run server 
+## Run server
+
 Ensure that you are in `client` directory and run the following command: 
 `python manage.py runserver` then open it with Chrome browser: http://127.0.0.1:8000/ 
 
-Or run `python manage.py runserver 8080` 
+Or run `python manage.py runserver 8080`  
 
-Open it with Chrome browser: http://127.0.0.1:8080/ 
+Open it with Chrome browser: [http://127.0.0.1:8080/](http://127.0.0.1:8080/)  
 
-if you have ` You're accessing the development server over HTTPS, but it only supports HTTP.` 
+if you have ` You're accessing the development server over HTTPS, but it only supports HTTP.`
 
-issue with 8000 port. 
+issue with 8000 port.  
 
-## Using Docker
+## Run app Using Docker
 
 - Build and run
 
@@ -64,13 +65,37 @@ issue with 8000 port.
     docker build -t <image> .
     docker run -it -p <port:port> <image>
     ```
+
 - Open browser and head to ["http://localhost:8000/"](http://localhost:8000/)
 
+## Run app with kubernetes and minikube
 
-# Functionality 
-The client aims to present the option of using our model to predict what the increase or decrease in percentage is going to be of a certain stock or multiple stocks. This can be done in different ways, either the user inputs values manually and gets the prediction for those values or presses a button which runs all stocks in the system through the model and predicts which ones are predicted to have the most increase (the data which is ran through the model is the latest balance sheet report for each company). This is presented in a list, sorted in descending order. There will also be a list of stocks if the user just wants to make a prediction on a single stock, that is in the system. Admin can extract datasets from the API in the admin page to train the model with new data. 
+- Prerequisites
+  - Kubernetes
+  - minikube
+- Setup
 
-# Screenshots 
+```Bash
+minikube delete
+minikube start
+
+kubectl apply -f stoink-job.yaml
+kubectl apply -f stoink-service.yaml
+kubectl apply -f stoink-deploy.yaml
+```
+
+- Run service
+
+```Bash
+minikube service stoink-service
+```
+
+# Functionality
+
+The client aims to present the option of using our model to predict what the increase or decrease in percentage is going to be of a certain stock or multiple stocks. This can be done in different ways, either the user inputs values manually and gets the prediction for those values or presses a button which runs all stocks in the system through the model and predicts which ones are predicted to have the most increase (the data which is ran through the model is the latest balance sheet report for each company). This is presented in a list, sorted in descending order. There will also be a list of stocks if the user just wants to make a prediction on a single stock, that is in the system. Admin can extract datasets from the API in the admin page to train the model with new data.  
+
+# Screenshots
+
 ![screenshot1](screenshot/screenshot1.png)
 ![screenshot2](screenshot/screenshot2.png)
 ![screenshot3](screenshot/screenshot3.png)
