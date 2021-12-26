@@ -192,6 +192,7 @@ Ask Ta about what features is good enough, SV-session.<br>
 
 | Task        | Responsible |
 | ----------- | ----------- |
+| Correlation analysis on all features  | Eric Hallberg        |
 
 
 **Agenda for next meeting 1/12:**<br>
@@ -249,7 +250,8 @@ merging Dev into main.<br>
 
 | Task        | Responsible |
 | ----------- | ----------- |
-| Add market category as aa feature to the dataset  | Eric Hallberg        |
+| Add market category as a feature to the dataset  | Eric Hallberg        |
+| Change all data in features to % difference since last report  | Eric Hallberg        |
 
 
 **Agenda for next meeting 8/12:**<br>
@@ -276,7 +278,7 @@ Ask Ta about, Testing and model types.<br>
 | Task        | Responsible |
 | ----------- | ----------- |
 | Start and experiment with model      | All members      |
-
+| Fix data cleaning file and put in project  | Eric Hallberg        |
 
 **Agenda for next meeting 10/12:**<br>
 Standup.<br>
@@ -321,7 +323,7 @@ Effat Mahmud Enti.<br>
 
 **Discussions:**<br>
 datastorage, store clean or raw data in db.<br>
-discussing the meaning of dunamic training of model via admin page.<br>
+discussing the meaning of dynamic training of model via admin page.<br>
 How good does the model need to be.<br>
 
 
@@ -333,7 +335,7 @@ Ask TA about the 3 things we discussed.<br>
 
 | Task        | Responsible |
 | ----------- | ----------- |
-| '   |       |
+| Code functions in models.py for training, evaluating and predicting.   |   Eric Hallberg    |
 
 
 **Agenda for next meeting 15/12:**<br>
@@ -359,6 +361,7 @@ splitting the presentation between the members<br>
 | Idea, Data Source, Architecture   |  Samuel Gunnarsson      |
 | Fronted, To Do, Obstacles   |  Effat Mahmud Enti      |
 | Data Processing, Ml pipeline, Live Demo   |  Eric Hallberg     |
+| Unit test datacleaning function   |  Eric Hallberg     |
 
 
 **Agenda for next meeting 20/12:**<br>
@@ -385,7 +388,7 @@ Moving Wednesday 22/12 meeting to 09:00.<br>
 | ----------- | ----------- |
 | loading and saving the model as Django model   |  Eric Hallberg     |
 | Setup basic Admin page   |  Eric Hallberg     |
-
+| Showing results and attributes of evaluation/retraining in the admin page in Admin.py |  Eric Hallberg     |
 
 **Agenda for next meeting 22/12:**<br>
 Standup.<br>
