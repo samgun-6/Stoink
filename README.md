@@ -72,12 +72,15 @@ issue with 8000 port.
 
 - Prerequisites
   - Kubernetes
-  - minikube
+  - Minikube
+  - Docker
 - Setup
 
 ```Bash
-minikube delete
+minikube delete # Only needed when starting fresh
 minikube start
+
+cd kubernetes
 
 kubectl apply -f stoink-job.yaml
 kubectl apply -f stoink-service.yaml
@@ -88,6 +91,16 @@ kubectl apply -f stoink-deploy.yaml
 
 ```Bash
 minikube service stoink-service
+```
+
+- Check deployment
+
+```Bash
+minikube dashboard
+
+# or
+kubectl get pods
+kubectl get deployments
 ```
 
 # Functionality
