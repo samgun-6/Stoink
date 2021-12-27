@@ -6,12 +6,12 @@ import numpy as np
 def clean_raw_data():
 
     # Loading the data from CSV into pandas dataframe
-    tempIncomeStatement = pd.read_csv (r'../data/income_statement.csv', sep=',')
-    tempCashFlow = pd.read_csv (r'../data/cash_flow.csv', sep=',')
-    tempBalanceSheet = pd.read_csv (r'../data/balance-sheet.csv', sep=',')
-    tempEarnings = pd.read_csv (r'../data/EARNINGS.csv', sep=',')
-    tempMonthly = pd.read_csv (r'../data/monthly-data.csv', sep=',')
-    TickerSymbols = pd.read_csv (r'../data/nasdaq_screener_sorted_values.csv', sep=',')
+    tempIncomeStatement = pd.read_csv (r'../client/data/income_statement.csv', sep=',')
+    tempCashFlow = pd.read_csv (r'../client/data/cash_flow.csv', sep=',')
+    tempBalanceSheet = pd.read_csv (r'../client/data/balance-sheet.csv', sep=',')
+    tempEarnings = pd.read_csv (r'../client/data/EARNINGS.csv', sep=',')
+    tempMonthly = pd.read_csv (r'../client/data/monthly-data.csv', sep=',')
+    TickerSymbols = pd.read_csv (r'../client/data/nasdaq_screener_sorted_values.csv', sep=',')
 
     # renaming Balance sheet column "fiscalDateEnding" to "timestamp" to match column name on both dataframes
     tempIncomeStatement = tempIncomeStatement.rename(columns={"fiscalDateEnding": "timestamp"})
@@ -63,7 +63,7 @@ def clean_raw_data():
         CompanyCashFlow.drop(["reportedCurrency", 'symbol'], axis=1, inplace=True)
         CompanyBalanceSheet.drop(["reportedCurrency", 'symbol'], axis=1, inplace=True)
         CompanyEarnings.drop(['symbol', 'reportedDate'], axis=1, inplace=True)
-        CompanyMonthly.drop(['Symbol'], axis=1, inplace=True)
+        #CompanyMonthly.drop(['Symbol'], axis=1, inplace=True)
 
         # Cutting out unnecessary data from the CompanyMonthly
         # We only need price data in CompanyMonthly within the daterange of the 20 rows on CompanyBalanceSheet data
@@ -102,13 +102,14 @@ def clean_raw_data():
         merged_df = merged_df.replace('None', np.nan)
 
         for col in merged_df.columns:
-            if col != "timestamp":
-                if col != "1m":
-                    merged_df[col] = merged_df[col].astype("float")
-                    merged_df[col] = merged_df[col].replace(-np.inf, np.nan)
-                    merged_df[col] = merged_df[col].replace(np.inf, np.nan)
-                    merged_df[col] = merged_df[col].replace(np.nan, merged_df[col].mean())
-                    merged_df[col] = merged_df[col].pct_change(periods=-1).shift(periods=0)
+            if col != "Symbol":        
+                if col != "timestamp":
+                    if col != "1m":
+                        merged_df[col] = merged_df[col].astype("float")
+                        merged_df[col] = merged_df[col].replace(-np.inf, np.nan)
+                        merged_df[col] = merged_df[col].replace(np.inf, np.nan)
+                        merged_df[col] = merged_df[col].replace(np.nan, merged_df[col].mean())
+                        merged_df[col] = merged_df[col].pct_change(periods=-1).shift(periods=0)
         print(merged_df[cat].head(21))
 
         # adding it to the final dataframe
@@ -120,32 +121,36 @@ def clean_raw_data():
 
     # Randomly shuffles the rows, better for training the model later
     # Also resetting the Index for the dataframe
-    final_df = final_df.sample(frac=1).reset_index(drop=True)
+#    final_df = final_df.sample(frac=1).reset_index(drop=True)
 
     # Filling out the remaining NaNs and inf with mean value of the column
     for col in final_df.columns:
-        if col != "timestamp":
-            if col != "1m":
-                final_df[col] = final_df[col].replace(-np.inf, np.nan)
-                final_df[col] = final_df[col].replace(np.inf, np.nan)
-                final_df[col] = final_df[col].replace(np.nan, final_df[col].mean())
+        if col != "Symbol":        
+            if col != "timestamp":
+                if col != "1m":
+                    final_df[col] = final_df[col].replace(-np.inf, np.nan)
+                    final_df[col] = final_df[col].replace(np.inf, np.nan)
+                    final_df[col] = final_df[col].replace(np.nan, final_df[col].mean())
 
     # deleting columns with more than 1 % nan values
     m = len(final_df)
     for col in final_df.columns:
-        if col != "1m":
-            percentageNan = ((final_df[col].isnull().sum()/m)*100)
-            print(str(col) + " has " + str(percentageNan))
+        if col != "Symbol":                    
+            if col != "timestamp":
+                if col != "1m":
+                    percentageNan = ((final_df[col].isnull().sum()/m)*100)
+                    print(str(col) + " has " + str(percentageNan))
 
-            if ((final_df[col].isnull().sum()/m)*100) >= 1:
-                final_df.drop(col, axis=1, inplace=True)
-                print(str(col) + " has been dropped.")
+                    if ((final_df[col].isnull().sum()/m)*100) >= 1:
+                        final_df.drop(col, axis=1, inplace=True)
+                        print(str(col) + " has been dropped.")
 
     # Again filling out with the mean
     for col in final_df.columns:
-        if col != "timestamp":
-            if col != "1m":
-                final_df[col] = final_df[col].replace(np.inf, final_df[col].mean())
+        if col != "Symbol":        
+            if col != "timestamp":
+                if col != "1m":
+                    final_df[col] = final_df[col].replace(np.inf, final_df[col].mean())
 
     # Dropping rows with 1m NaN values
     final_df = final_df[final_df['1m'].notna()]
@@ -161,7 +166,12 @@ def clean_raw_data():
 
     # Export to CSV file
     df_to_export = final_df[cols_extract]
-    df_to_export.to_csv(r'../data/topFiveFeats.csv', sep= ",", index = False)
+    df_to_export["symbol"] = final_df["Symbol"]
+    df_to_export["timestamp"] = final_df["timestamp"]
+    print(df_to_export)
+    df_to_export.to_csv(r'../client/data/topFiveFeats.csv', sep= ",", index = False)
 
 # Dummycode, REMOVE!
-# clean_raw_data()
+for i in range(1):
+    clean_raw_data()
+
