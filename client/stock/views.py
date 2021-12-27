@@ -575,7 +575,6 @@ def predict(request):
       model_fname = 'model_v1.h5'
       model = load_model(model_fname)
 
-
    predictions = str(model.predict(df))
    predictions_in_percentage = float(predictions[2:12]) *100
 
@@ -613,10 +612,10 @@ def allstocks(request):
    # Load the model
    model_fname = 'model_v1.h5'
    model = load_model(model_fname)
-
-   predictions = str(model.predict(df))
-
-   return render(request, 'front/allstocks.html',{ 'allstocks': allstocks,'predictions': predictions})
+   for i in range (0,len(allstocks)):
+     predictions = str(model.predict(df))
+     predictions_in_percentage = float(predictions[2:12]) * 100
+     return render(request, 'front/allstocks.html',{ 'allstocks': allstocks,'predictions': '%.4f%%'% predictions_in_percentage})
 
 
 def setModel(newModel, request):
