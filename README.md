@@ -59,46 +59,71 @@ issue with 8000 port.
 - Build and run
 
     ```Bash
-    docker build -t <image> .
-    docker run -it -p <port:port> <image>
+    docker build -t <repoName>/<imageName>:<tagName> . # Build image with Tag
+    docker run -it -p <port:port> <image>:[Tag] # Check if it works
+    docker tag samgun6/stoink:<Tag> samgun6/stoink:latest # Tag same image with latest
+    docker push --all-tags samgun6/stoink # Push all tags for selected image to docker hub
     ```
 
 - Open browser and head to ["http://localhost:8000/"](http://localhost:8000/)
 
 ## Run app with kubernetes and minikube
 
-- Prerequisites
-  - Kubernetes
-  - Minikube
-  - Docker
-- Setup
+Prerequisites
 
-```Bash
-minikube delete # Only needed when starting fresh
-minikube start
+- Kubernetes
+- Minikube
+- Docker
 
-cd kubernetes
+### Start fresh with minikube
 
-kubectl apply -f stoink-job.yaml
-kubectl apply -f stoink-service.yaml
-kubectl apply -f stoink-deploy.yaml
-```
+1. Build and push latest docker image
+2. Start/ reset minikube
 
-- Run service
+    ```Bash
+    minikube delete # Only needed when starting fresh
+    minikube start
+    ```
 
-```Bash
-minikube service stoink-service
-```
+3. Apply deployments
 
-- Check deployment
+    ```Bash
+    cd kubernetes
+    kubectl apply -f stoink-job.yaml
+    kubectl apply -f stoink-service.yaml
+    kubectl apply -f stoink-deploy.yaml
+    ```
 
-```Bash
-minikube dashboard
+### Update deployment
 
-# or
-kubectl get pods
-kubectl get deployments
-```
+1. Build and push latest docker image
+2. Start minikube
+  
+   ```Bash
+   minikube start
+   ```
+
+3. Re apply deployment file
+
+   ```Bash
+   kubectl apply -f stoink-deploy.yaml # Will pull image:latest from dockerhub
+   ```
+
+### Run service
+
+  ```Bash
+  minikube service stoink-service
+  ```
+
+### Check deployment
+
+  ```Bash
+  minikube dashboard # In browser
+
+  # or in terminal
+  kubectl get pods
+  kubectl get deployments
+  ```
 
 # Functionality
 
