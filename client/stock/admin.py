@@ -4,6 +4,7 @@ from django.contrib.auth.models import Group
 from django.forms import forms
 from django.shortcuts import render
 from django.urls import path
+from django.utils.html import format_html
 
 from . import models
 from .models import AiModel, DataSet
@@ -56,10 +57,23 @@ class DataSetAdmin(admin.ModelAdmin):
 
 
 class AiModelAdmin(admin.ModelAdmin):
-    list_display = ("title", "version", "created", "loss", "accuracy", "learningrate", "inputlayer", "dropout", "secondlayer", "thirdlayer", "epochs", "batchsize", "split")
+    list_display = ("title", "version", "my_button", "created", "loss", "accuracy", "learningrate", "inputlayer", "dropout", "secondlayer", "thirdlayer", "epochs", "batchsize", "split")
+
+    def my_button(self, obj):
+        return format_html(
+            '<button class="btn" type="Submit" onclick="activate_and_send_email({pk})">Deploy</button>',
+            pk=obj.pk)
+
+    my_button.allow_tags = True
+    my_button.short_description = "Actions"
 
     def train_model(self, request):
         return render(request, "admin/model_upload.html", data)
+
+    def aimodel_actions(self, request):
+        return render(request, "admin/base.html", data)
+
+
 
 
 admin.site.register(AiModel, AiModelAdmin)
