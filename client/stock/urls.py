@@ -10,5 +10,5 @@ urlpatterns = [
     url(r'^stock/$', views.stock, name='stock'),
     path('predict', views.predict, name='predict'),
     path('testFunc', views.testFunc, name='testFunc'),
-
+    path('allstocks', views.allstocks, name='allstocks'),
 ]

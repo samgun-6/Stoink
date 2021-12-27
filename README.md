@@ -10,22 +10,19 @@ By using the fundamental data of companies we will be able to read data such as 
 The free API version is limited to 5 requests per minute and 500 total per day. 
 
 # Libraries used 
-
-- Numpy
-- Matplotlib
-- Tensorflow
-- Keras
-- Pandas
-- Scikit-learn
-- requests
+ - Numpy 
+ - Matplotlib
+ - Tensorflow 
+ - Keras 
+ - Pandas
+ - Scikit-learn 
 
 # Technologies used 
-
-- Python
-- Django
-- Bootstrap3
-- CSS
-- LSTM
+ - Python
+ - Django
+ - Bootstrap3
+ - CSS
+ - LSTM
 
 # Features 
 TBA 
