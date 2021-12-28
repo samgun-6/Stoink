@@ -11,7 +11,7 @@ urlpatterns = [
     path('predict', views.predict, name='predict'),
     path('testFunc', views.testFunc, name='testFunc'),
     path('allstocks', views.allstocks, name='allstocks'),
-    path('setModel', views.setModel, name='setModel'),
-    path('getModel', views.getModel, name='getModel'),
+    #path('setModel', views.setModel, name='setModel'),
+    #path('getModel', views.getModel, name='getModel'),
 
 ]

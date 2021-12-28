@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 import pandas as pd
 from django.contrib.postgres.fields import JSONField
-from django.db import models
+from django.db import models, transaction
 from tensorflow.keras.models import Sequential, load_model
 from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
@@ -66,6 +66,15 @@ class AiModel(models.Model):
     batchsize = models.IntegerField(default=16)
     split = models.FloatField(default=0.3727)
     version = models.IntegerField(default=0)
+    deployed = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        if not self.deployed:
+            return super(AiModel, self).save(*args, **kwargs)
+        with transaction.atomic():
+            AiModel.objects.filter(
+                deployed=True).update(deployed=False)
+            return super(AiModel, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title

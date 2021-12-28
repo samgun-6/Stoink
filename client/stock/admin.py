@@ -59,13 +59,13 @@ class DataSetAdmin(admin.ModelAdmin):
 
 
 class AiModelAdmin(admin.ModelAdmin):
-    list_display = ("title", "version", "my_button", "created", "loss", "accuracy", "learningrate", "inputlayer", "dropout", "secondlayer", "thirdlayer", "epochs", "batchsize", "split")
+    list_display = ("title", "version", "deployed", "created", "loss", "accuracy", "learningrate", "inputlayer", "dropout", "secondlayer", "thirdlayer", "epochs", "batchsize", "split")
 
 
-    def my_button(self, obj):
-        return mark_safe('<form action = "setModel" method = "GET">'
-                '<button type = "submit" name = "pk" value = "title" id = "pk"> Deploy </button>'
-                '</form>')
+    #def my_button(self, obj):
+    #    return mark_safe('<form action = "setModel" method = "POST">'
+    #            '<button type = "submit" name = "pk" value = "title" id = "pk"> Deploy </button>'
+    #            '</form>')
 
     def train_model(self, request):
         return render(request, "admin/base.html")
