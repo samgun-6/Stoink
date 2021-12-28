@@ -39,12 +39,12 @@ def testFunc(request):
       var5 = (float(request.GET['Inputfive']))
       # coverting data into dataframe (from dict)
       df = pd.DataFrame({'1': var1, '2': var2, '3': var3, '4': var4, '5': var5}, index=[0])
-      # Load the model and predicting
 
-      #
+      # Load the model and predicting
       temp = AiModel.objects.get(deployed=True)
       model = load_model(temp.get_title())
 
+      # make prediction
       prediction = str(model.predict(df))
       prediction_in_percentage = float(prediction[2:12]) * 100
    else:
@@ -578,20 +578,14 @@ def predict(request):
       df.drop('timestamp', axis=1, inplace=True)
       df.drop('symbol', axis=1, inplace=True)
 
-      # Load the model
-      # query database for model with Deploy = TRUE, return name.
-      temp = AiModel()
-      temp = AiModel.objects.filter(deploy=True)
-      model_fname = temp
-      model = load_model(model_fname)
+      # Load the model and predicting
+      temp = AiModel.objects.get(deployed=True)
+      model = load_model(temp.get_title())
+
 
    predictions = str(model.predict(df))
    predictions_in_percentage = float(predictions[2:12]) *100
 
-   # hardcode predictions value in a list, it works to show on screen
-   #predictions = [1,2,3,44,5,555.0,7.0,999,1000]
-   #for i in range(len(predictions)):
-      #prediction = Prediction(i)
    return render(request, 'front/prediction.html',{'stock_title': stock_name, 'predictions': '%.4f%%'% predictions_in_percentage})
 
 
@@ -619,24 +613,14 @@ def allstocks(request):
    df.drop('1m', axis=1, inplace=True)
    df.drop('timestamp', axis=1, inplace=True)
    df.drop('symbol', axis=1, inplace=True)
-   # Load the model
-   model_fname = 'model_v1.h5'
-   model = load_model(model_fname)
+
+   # Load the model and predicting
+   temp = AiModel.objects.get(deployed=True)
+   model = load_model(temp.get_title())
+
    for i in range (0,len(allstocks)):
      predictions = str(model.predict(df))
      predictions_in_percentage = float(predictions[2:12]) * 100
      return render(request, 'front/allstocks.html',{ 'allstocks': allstocks,'predictions': '%.4f%%'% predictions_in_percentage})
 
 
-#def setModel(request):
-#   current_model.set_deployed_model("hello")
-#   print("it works????")
-#   return render(request, 'admin/base.html')
-
-
-#def getModel():
-#   return current_model.get_deployed_model()
-
-# creating an object to hold the current model name, so we can set and get it when needed.
-#current_model = DeployedModel()
-#print(getModel())
