@@ -1,7 +1,5 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Prediction
-from main.models import Main
 import numpy as np
 import pandas as pd
 import datetime as dt
@@ -13,6 +11,20 @@ from tensorflow.keras.layers import Dense, Dropout, LSTM
 #def stock(request):
    #return HttpResponse("You're at the stocks index.")
 
+
+#class DeployedModel:
+#   name = "Santas Model"
+
+#   def set_deployed_model(self, model):
+#      self.name = model
+
+#   def get_deployed_model(self):
+#      return self.name
+from .models import AiModel
+
+
+def trainAndEvaluate(request):
+   return render(request, "admin/base.html")
 
 def stock(request):
    return render(request, 'front/stock.html')
@@ -27,13 +39,17 @@ def testFunc(request):
       var5 = (float(request.GET['Inputfive']))
       # coverting data into dataframe (from dict)
       df = pd.DataFrame({'1': var1, '2': var2, '3': var3, '4': var4, '5': var5}, index=[0])
+
       # Load the model and predicting
-      model_fname = 'model_v1.h5'
-      model = load_model(model_fname)
+      temp = AiModel.objects.get(deployed=True)
+      model = load_model(temp.get_title())
+
+      # make prediction
       prediction = str(model.predict(df))
+      prediction_in_percentage = float(prediction[2:12]) * 100
    else:
-      prediction = "error something wrong with posting the data"
-   return render(request, 'front/stock.html', {'prediction': prediction})
+      prediction_in_percentage = "error something wrong with posting the data"
+   return render(request, 'front/stock.html', {'prediction': '%.4f%%'% prediction_in_percentage})
 
 
 def predict(request):
@@ -562,19 +578,15 @@ def predict(request):
       df.drop('timestamp', axis=1, inplace=True)
       df.drop('symbol', axis=1, inplace=True)
 
-      # Load the model
-      model_fname = 'model_v1.h5'
-      model = load_model(model_fname)
+      # Load the model and predicting
+      temp = AiModel.objects.get(deployed=True)
+      model = load_model(temp.get_title())
 
-   #predictions = []
 
-   predictions = model.predict(df)
+   predictions = str(model.predict(df))
+   predictions_in_percentage = float(predictions[2:12]) *100
 
-   # hardcode predictions value in a list, it works to show on screen
-   #predictions = [1,2,3,44,5,555.0,7.0,999,1000]
-   #for i in range(len(predictions)):
-      #prediction = Prediction(i)
-   return render(request, 'front/prediction.html',{'stock_title': stock_name, 'predictions': predictions})
+   return render(request, 'front/prediction.html',{'stock_title': stock_name, 'predictions': '%.4f%%'% predictions_in_percentage})
 
 
 def allstocks(request):
@@ -601,11 +613,14 @@ def allstocks(request):
    df.drop('1m', axis=1, inplace=True)
    df.drop('timestamp', axis=1, inplace=True)
    df.drop('symbol', axis=1, inplace=True)
-   # Load the model
-   model_fname = 'model_v1.h5'
-   model = load_model(model_fname)
 
-   predictions = model.predict(df)
+   # Load the model and predicting
+   temp = AiModel.objects.get(deployed=True)
+   model = load_model(temp.get_title())
 
-   return render(request, 'front/allstocks.html',{ 'allstocks': allstocks,'predictions': predictions})
+   for i in range (0,len(allstocks)):
+     predictions = str(model.predict(df))
+     predictions_in_percentage = float(predictions[2:12]) * 100
+     return render(request, 'front/allstocks.html',{ 'allstocks': allstocks,'predictions': '%.4f%%'% predictions_in_percentage})
+
 

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% extends "admin/change_form.html" %}
+{% block submit_buttons_bottom %}
+        {{ block.super }}
+
+    <div class="submit-row">
+       <input type="submit" action = "trainAndEvaluate" value="Evaluate and train model" name="evaluate" />
+    </div>
+{% endblock %}
+</head>
+<body>
+
+</body>
+</html>

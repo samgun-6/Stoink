@@ -249,6 +249,9 @@
           </form>
       <br>
           <br>
+
+      <br>
+          <br>
           <h2>Input values manually to make a prediction</h2>
 
 <form action="testFunc">
@@ -263,11 +266,7 @@
   <label for="lname">currentAccountsPayable:</label><br>
   <input type="text" id="currentAccountsPayable" name="Inputfive" value="0.123"><br><br>
   <input type="submit" value="Submit" class="btn btn-primary">
-    <div>
-    {{ prediction }}
-        <br>
-    above this should be the result in %
-    </div>
+    <h3>The forecast increase for these input values is: {{ prediction }}. </h3>
 </form>
       <div>
       </div>

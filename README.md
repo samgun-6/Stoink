@@ -10,21 +10,19 @@ By using the fundamental data of companies we will be able to read data such as 
 The free API version is limited to 5 requests per minute and 500 total per day. 
 
 # Libraries used 
-
-- Numpy
-- Matplotlib
-- Tensorflow
-- Keras
-- Pandas
-- Scikit-learn
-- requests
+ - Numpy 
+ - Matplotlib
+ - Tensorflow 
+ - Keras 
+ - Pandas
+ - Scikit-learn 
 
 # Technologies used 
-
-- Python
-- Django
-- Bootstrap3
-- CSS
+ - Python
+ - Django
+ - Bootstrap3
+ - CSS
+ - LSTM
 
 # Features 
 TBA 
@@ -43,35 +41,100 @@ in your project.
 - Install pip3 via following command:
 `(base)$ pip3 install django `
 
-## Run server 
+## Run server
+
 Ensure that you are in `client` directory and run the following command: 
 `python manage.py runserver` then open it with Chrome browser: http://127.0.0.1:8000/ 
 
-Or run `python manage.py runserver 8080` 
+Or run `python manage.py runserver 8080`  
 
-Open it with Chrome browser: http://127.0.0.1:8080/ 
+Open it with Chrome browser: [http://127.0.0.1:8080/](http://127.0.0.1:8080/)  
 
-if you have ` You're accessing the development server over HTTPS, but it only supports HTTP.` 
+if you have ` You're accessing the development server over HTTPS, but it only supports HTTP.`
 
-issue with 8000 port. 
+issue with 8000 port.  
 
-## Run server using docker
+## Run app Using Docker
 
-```Python
-docker build -t [name] .
-docker run -it -p [port:port] [name]
-```
+- Build and run
 
-# Functionality 
-The client aims to present the option of using our model to predict what the increase or decrease in percentage is going to be of a certain stock or multiple stocks. This can be done in different ways, either the user inputs values manually and gets the prediction for those values or presses a button which runs all stocks in the system through the model and predicts which ones are predicted to have the most increase (the data which is ran through the model is the latest balance sheet report for each company). This is presented in a list, sorted in descending order. There will also be a list of stocks if the user just wants to make a prediction on a single stock, that is in the system. Admin can extract datasets from the API in the admin page to train the model with new data. 
+    ```Bash
+    docker build -t <repoName>/<imageName>:<tagName> . # Build image with Tag
+    docker run -it -p <port:port> <image>:[Tag] # Check if it works
+    docker tag samgun6/stoink:<Tag> samgun6/stoink:latest # Tag same image with latest
+    docker push --all-tags samgun6/stoink # Push all tags for selected image to docker hub
+    ```
 
-# Screenshots 
+- Open browser and head to ["http://localhost:8000/"](http://localhost:8000/)
+
+## Run app with kubernetes and minikube
+
+Prerequisites
+
+- Kubernetes
+- Minikube
+- Docker
+
+### Start fresh with minikube
+
+1. Build and push latest docker image
+2. Start/ reset minikube
+
+    ```Bash
+    minikube delete # Only needed when starting fresh
+    minikube start
+    ```
+
+3. Apply deployments
+
+    ```Bash
+    cd kubernetes
+    kubectl apply -f stoink-job.yaml
+    kubectl apply -f stoink-service.yaml
+    kubectl apply -f stoink-deploy.yaml
+    ```
+
+### Update deployment
+
+1. Build and push latest docker image
+2. Start minikube
+  
+   ```Bash
+   minikube start
+   ```
+
+3. Re apply deployment file
+
+   ```Bash
+   kubectl apply -f stoink-deploy.yaml # Will pull image:latest from dockerhub
+   ```
+
+### Run service
+
+  ```Bash
+  minikube service stoink-service
+  ```
+
+### Check deployment
+
+  ```Bash
+  minikube dashboard # In browser
+
+  # or in terminal
+  kubectl get pods
+  kubectl get deployments
+  ```
+
+# Functionality
+
+The client aims to present the option of using our model to predict what the increase or decrease in percentage is going to be of a certain stock or multiple stocks. This can be done in different ways, either the user inputs values manually and gets the prediction for those values or presses a button which runs all stocks in the system through the model and predicts which ones are predicted to have the most increase (the data which is ran through the model is the latest balance sheet report for each company). This is presented in a list, sorted in descending order. There will also be a list of stocks if the user just wants to make a prediction on a single stock, that is in the system. Admin can extract datasets from the API in the admin page to train the model with new data.  
+
+# Screenshots
+
 ![screenshot1](screenshot/screenshot1.png)
 ![screenshot2](screenshot/screenshot2.png)
 ![screenshot3](screenshot/screenshot3.png)
 ![screenshot4](screenshot/screenshot4.png)
-![screenshot5](screenshot/screenshot5.png)
-![screenshot6](screenshot/screenshot6.png)
 
 # Production system
 TBA

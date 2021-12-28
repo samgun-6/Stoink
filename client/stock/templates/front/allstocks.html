@@ -3,7 +3,6 @@
 <html lang="en">
     <!-- Bootstrap core CSS -->
 <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-
 <div class="container-fluid">
   <div class="row">
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -21,15 +20,17 @@
             </tr>
           </thead>
           <tbody>
-          {% for prediction in predictions %}
               {% for allstock in allstocks %}
             <tr>
               <td>{{allstock}}</td>
-              <td>{{prediction}}</td>
+              <td>{{predictions}}</td>
             </tr>
-          {% endfor %}
           {% endfor %}
           </tbody>
         </table>
     </div>
 </div>
+
+
+
+
