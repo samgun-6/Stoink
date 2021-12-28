@@ -1,10 +1,11 @@
 FROM python:3.9
 
+# Install dependencies
+COPY requirements.txt requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
 # Mount the application code
 ADD . .
-
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 8000
 
