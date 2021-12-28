@@ -63,11 +63,9 @@ class AiModelAdmin(admin.ModelAdmin):
 
 
     def my_button(self, obj):
-        return mark_safe('<form action = "setModel" method = "POST">'
+        return mark_safe('<form action = "setModel" method = "GET">'
                 '<button type = "submit" name = "pk" value = "title" id = "pk"> Deploy </button>'
                 '</form>')
-        title.short_description = 'Action'
-        title.allow_tags = True
 
     def train_model(self, request):
         return render(request, "admin/base.html")
