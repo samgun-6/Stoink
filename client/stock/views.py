@@ -20,7 +20,11 @@ from tensorflow.keras.layers import Dense, Dropout, LSTM
 
 #   def get_deployed_model(self):
 #      return self.name
+from .models import AiModel
 
+
+def trainAndEvaluate(request):
+   return render(request, "admin/base.html")
 
 def stock(request):
    return render(request, 'front/stock.html')
@@ -36,8 +40,11 @@ def testFunc(request):
       # coverting data into dataframe (from dict)
       df = pd.DataFrame({'1': var1, '2': var2, '3': var3, '4': var4, '5': var5}, index=[0])
       # Load the model and predicting
-      model_fname = 'model_v1.h5'
-      model = load_model(model_fname)
+
+      #
+      temp = AiModel.objects.get(deployed=True)
+      model = load_model(temp.get_title())
+
       prediction = str(model.predict(df))
       prediction_in_percentage = float(prediction[2:12]) * 100
    else:
@@ -572,7 +579,10 @@ def predict(request):
       df.drop('symbol', axis=1, inplace=True)
 
       # Load the model
-      model_fname = 'model_v1.h5'
+      # query database for model with Deploy = TRUE, return name.
+      temp = AiModel()
+      temp = AiModel.objects.filter(deploy=True)
+      model_fname = temp
       model = load_model(model_fname)
 
    predictions = str(model.predict(df))

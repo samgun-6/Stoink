@@ -67,6 +67,7 @@ class AiModel(models.Model):
     split = models.FloatField(default=0.3727)
     version = models.IntegerField(default=0)
     deployed = models.BooleanField(default=False)
+    dataset = models.ForeignKey(DataSet, null=True, on_delete=models.SET_NULL)
 
     def save(self, *args, **kwargs):
         if not self.deployed:
@@ -78,6 +79,10 @@ class AiModel(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_title(self):
+        temp = self.title
+        return temp
 
     def get_titleversion(self):
         temp = self.title + str(self.version)
