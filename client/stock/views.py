@@ -1,7 +1,5 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Prediction
-from main.models import Main
 import numpy as np
 import pandas as pd
 import datetime as dt
@@ -12,6 +10,16 @@ from tensorflow.keras.layers import Dense, Dropout, LSTM
 
 #def stock(request):
    #return HttpResponse("You're at the stocks index.")
+
+
+#class DeployedModel:
+#   name = "Santas Model"
+
+#   def set_deployed_model(self, model):
+#      self.name = model
+
+#   def get_deployed_model(self):
+#      return self.name
 
 
 def stock(request):
@@ -33,7 +41,7 @@ def testFunc(request):
       prediction = str(model.predict(df))
       prediction_in_percentage = float(prediction[2:12]) * 100
    else:
-      prediction = "error something wrong with posting the data"
+      prediction_in_percentage = "error something wrong with posting the data"
    return render(request, 'front/stock.html', {'prediction': '%.4f%%'% prediction_in_percentage})
 
 
@@ -609,3 +617,16 @@ def allstocks(request):
      predictions_in_percentage = float(predictions[2:12]) * 100
      return render(request, 'front/allstocks.html',{ 'allstocks': allstocks,'predictions': '%.4f%%'% predictions_in_percentage})
 
+
+#def setModel(request):
+#   current_model.set_deployed_model("hello")
+#   print("it works????")
+#   return render(request, 'admin/base.html')
+
+
+#def getModel():
+#   return current_model.get_deployed_model()
+
+# creating an object to hold the current model name, so we can set and get it when needed.
+#current_model = DeployedModel()
+#print(getModel())

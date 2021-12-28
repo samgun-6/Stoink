@@ -2,9 +2,11 @@ import pandas as pd
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.forms import forms
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import path
 from django.utils.html import format_html
+from django.utils.safestring import mark_safe
 
 from . import models
 from .models import AiModel, DataSet
@@ -57,23 +59,16 @@ class DataSetAdmin(admin.ModelAdmin):
 
 
 class AiModelAdmin(admin.ModelAdmin):
-    list_display = ("title", "version", "my_button", "created", "loss", "accuracy", "learningrate", "inputlayer", "dropout", "secondlayer", "thirdlayer", "epochs", "batchsize", "split")
+    list_display = ("title", "version", "deployed", "created", "loss", "accuracy", "learningrate", "inputlayer", "dropout", "secondlayer", "thirdlayer", "epochs", "batchsize", "split")
 
-    def my_button(self, obj):
-        return format_html(
-            '<button class="btn" type="Submit" onclick="activate_and_send_email({pk})">Deploy</button>',
-            pk=obj.pk)
 
-    my_button.allow_tags = True
-    my_button.short_description = "Actions"
+    #def my_button(self, obj):
+    #    return mark_safe('<form action = "setModel" method = "POST">'
+    #            '<button type = "submit" name = "pk" value = "title" id = "pk"> Deploy </button>'
+    #            '</form>')
 
     def train_model(self, request):
-        return render(request, "admin/model_upload.html", data)
-
-    def aimodel_actions(self, request):
-        return render(request, "admin/base.html", data)
-
-
+        return render(request, "admin/base.html")
 
 
 admin.site.register(AiModel, AiModelAdmin)
