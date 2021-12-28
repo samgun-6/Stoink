@@ -47,7 +47,11 @@ class DataSetAdmin(admin.ModelAdmin):
             data = file_data
             df = pd.DataFrame(data=[x.split(',') for x in data.split('\r\n')])
             #deleting first row, for some realson after above function, it adds the column names as first data row....
-            df = df.iloc[1:, :]
+            print(df.tail(1))
+            print(df.head(1))
+            df = df.iloc[1:-1, :]
+            print(df.head(1))
+            print(df.tail(1))
             # Assiging the right column names
             df.columns = column
 
@@ -59,7 +63,7 @@ class DataSetAdmin(admin.ModelAdmin):
 
 
 class AiModelAdmin(admin.ModelAdmin):
-    list_display = ("title", "version", "deployed", "created", "loss", "accuracy", "learningrate", "inputlayer", "dropout", "secondlayer", "thirdlayer", "epochs", "batchsize", "split")
+    list_display = ("title", "version", "deployed", "dataset", "created", "loss", "accuracy", "learningrate", "inputlayer", "dropout", "secondlayer", "thirdlayer", "epochs", "batchsize", "split")
 
 
     #def my_button(self, obj):
