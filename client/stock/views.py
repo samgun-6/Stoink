@@ -3,6 +3,7 @@ from django.shortcuts import render
 import numpy as np
 import pandas as pd
 import datetime as dt
+from pandas._libs.tslibs import timestamps
 
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Sequential, load_model
@@ -20,7 +21,7 @@ from tensorflow.keras.layers import Dense, Dropout, LSTM
 
 #   def get_deployed_model(self):
 #      return self.name
-from .models import AiModel
+from .models import AiModel, DataSet
 
 
 def trainAndEvaluate(request):
@@ -573,17 +574,28 @@ def predict(request):
          stock_name = "Marvell Technology Inc. Common Stock"
       stock = stock_value
 
-      df = pd.read_csv('data/topFiveFeats.csv', sep=',')
-      df.drop('1m', axis=1, inplace=True)
-      df.drop('timestamp', axis=1, inplace=True)
-      df.drop('symbol', axis=1, inplace=True)
+   # query a DataSet model,
+   temp = DataSet.objects.get(title="topFiveFeats.csv")
 
-      # Load the model and predicting
-      temp = AiModel.objects.get(deployed=True)
-      model = load_model(temp.get_title())
+   # extracting the JSON data into a dataframe
+   extracted_df = temp.loadframe()
 
+   # Sort & filter dataframe
+   extracted_df['timestamp'] = pd.to_datetime(extracted_df['timestamp'])
+   extracted_df.sort_values(by='timestamp', ascending=False, inplace=True)
+   single = extracted_df.loc[(extracted_df["symbol"]==f"{stock}")]
+   grouped = single.groupby(by=['symbol'], as_index=False).first()
 
-   predictions = str(model.predict(df))
+   # Slice dataframe
+   grouped.drop('1m', axis=1, inplace=True)
+   grouped.drop('timestamp', axis=1, inplace=True)
+   grouped.drop('symbol', axis=1, inplace=True)
+
+   # Load the model and predicting
+   temp = AiModel.objects.get(deployed=True)
+   model = load_model(temp.get_title())
+
+   predictions = str(model.predict(grouped))
    predictions_in_percentage = float(predictions[2:12]) *100
 
    return render(request, 'front/prediction.html',{'stock_title': stock_name, 'predictions': '%.4f%%'% predictions_in_percentage})
@@ -591,7 +603,7 @@ def predict(request):
 
 def allstocks(request):
    if request.method == 'POST':
-    allstocks = ["AAPL","MSFT","GOOG","GOOGL",'AMZN',
+      allstocks = ["AAPL","MSFT","GOOG","GOOGL",'AMZN',
 'TSLA','FB','NVDA','TSM','JPM','V','JNJ','UNH','HD','ADI','BAC','WMT','BABA','ASML','PG',
 'MA','ADBE','NFLX','NTES','CRM','PFE','DIS','NKE','XOM','NVO', 'ORCL','TM','TMO','LLY','CMCSA',
 'KO','PYPL', 'AVGO','ACN','COST', 'ABT', 'PEP','DHR','CVX', 'CSCO','VZ', 'MRK', 'ABBV',
@@ -609,17 +621,31 @@ def allstocks(request):
    'WM','REGN','ETN','NET','FIS', 'NSC','APD', 'ECL', 'FISV', 'BNTX', 'SO', 'RACE','CL',
    'AON','FDX', 'COF', 'DXCM', 'PBR', 'KLAC', 'STLA','NIO','UBS','CRWD','MRVL']
 
-   df = pd.read_csv('data/topFiveFeats.csv', sep=',')
-   df.drop('1m', axis=1, inplace=True)
-   df.drop('timestamp', axis=1, inplace=True)
-   df.drop('symbol', axis=1, inplace=True)
 
+   # query a DataSet model,
+   temp = DataSet.objects.get(title="topFiveFeats.csv")
+
+   # extracting the JSON data into a dataframe
+   extracted_df = temp.loadframe()
+
+   # Sort & filter dataframe
+   extracted_df['timestamp'] = pd.to_datetime(extracted_df['timestamp'])
+   extracted_df.sort_values(by='timestamp', ascending=False, inplace=True)
+   grouped = extracted_df.groupby(by=['symbol'], as_index=False).first()
+
+   # Slice dataframe
+   grouped.drop('1m', axis=1, inplace=True)
+   grouped.drop('timestamp', axis=1, inplace=True)
+   grouped.drop('symbol', axis=1, inplace=True)
+   
    # Load the model and predicting
    temp = AiModel.objects.get(deployed=True)
    model = load_model(temp.get_title())
 
+   print(grouped)
+
    for i in range (0,len(allstocks)):
-     predictions = str(model.predict(df))
+     predictions = str(model.predict(grouped))
      predictions_in_percentage = float(predictions[2:12]) * 100
      return render(request, 'front/allstocks.html',{ 'allstocks': allstocks,'predictions': '%.4f%%'% predictions_in_percentage})
 
