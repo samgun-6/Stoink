@@ -70,7 +70,7 @@ class DataSetAdmin(admin.ModelAdmin):
 
 
 class AiModelAdmin(admin.ModelAdmin):
-    list_display = ("title", "account_actions","train_dataset","version", "deployed", "dataset", "created", "loss", "accuracy", "learningrate", "inputlayer", "dropout", "secondlayer", "thirdlayer", "epochs", "batchsize", "split")
+    list_display = ("title", "account_actions","train_dataset","evaluation_dataset","version", "deployed", "dataset", "created", "loss", "accuracy", "learningrate", "inputlayer", "dropout", "secondlayer", "thirdlayer", "epochs", "batchsize", "split")
 
     def account_actions(self, obj):
         return format_html(
@@ -101,19 +101,16 @@ class AiModelAdmin(admin.ModelAdmin):
 
 
     def train_model(self, request, title):
-        print("WE ARE INSIDE THE RIGHT FUNCTION; YIPPPIE!!!!!!!")
         target = get_object_or_404(AiModel, pk=title)
-        print(" -------------------    ")
-        print(target.get_titleversion())
-        print(" -------------------    ")
         print(target.train_model())
-
         return render(request, "admin/base.html")
 
     def evaluate_model(self, request, title):
-        print("WE ARE INSIDE THE evaluation function; YIPPPIE!!!!!!!")
+        print("WE ARE INSIDE THE eval!!!")
         target = get_object_or_404(AiModel, pk=title)
-        target.evaluate_model()
+        print(target.evaluate_model())
+        return render(request, "admin/base.html")
+
 
 admin.site.register(AiModel, AiModelAdmin)
 admin.site.register(DataSet, DataSetAdmin)
