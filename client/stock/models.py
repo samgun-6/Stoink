@@ -70,12 +70,13 @@ class AiModel(models.Model):
     version = models.IntegerField(default=0)
     deployed = models.BooleanField(default=False)
     dataset = models.ForeignKey(DataSet, null=True, on_delete=models.SET_NULL)
+    train = models.BooleanField(default=False)
 
     def train_button(self):
         return format_html(
-            '''<form action="activate/" method="GET">
-                   <button type="submit"> train </button>
-                </form>''')
+            '''<button type="button">
+    <a href="train"> Train </a>
+</button>''')
 
 
 
@@ -85,6 +86,14 @@ class AiModel(models.Model):
         with transaction.atomic():
             AiModel.objects.filter(
                 deployed=True).update(deployed=False)
+            return super(AiModel, self).save(*args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        if not self.train:
+            return super(AiModel, self).save(*args, **kwargs)
+        with transaction.atomic():
+            AiModel.objects.filter(
+                train=True).update(train=False)
             return super(AiModel, self).save(*args, **kwargs)
 
     def __str__(self):

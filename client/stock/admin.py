@@ -4,7 +4,7 @@ import pandas as pd
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.forms import forms
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import path
 import pandas as pd
 from django.db import models
@@ -68,19 +68,71 @@ class DataSetAdmin(admin.ModelAdmin):
 
 
 class AiModelAdmin(admin.ModelAdmin):
-    list_display = ("title", "train_button","version", "deployed", "dataset", "created", "loss", "accuracy", "learningrate", "inputlayer", "dropout", "secondlayer", "thirdlayer", "epochs", "batchsize", "split")
+    list_display = ("title", "train_button", "train","version", "deployed", "dataset", "created", "loss", "accuracy", "learningrate", "inputlayer", "dropout", "secondlayer", "thirdlayer", "epochs", "batchsize", "split")
+
 
     def get_urls(self):
         print("IM IN THE RIGHT FUNCTION")
         urls = super().get_urls()
         my_urls = [
-            path('train-model/<int:pk>/', self.train_model, name="admin_train_model"),
+            path('train/<int:title>/', view =self.train_model, name="train"),
         ]
         return my_urls + urls
 
-    def train_model(self, request, pk):
-        print("IM IN THE RIGHT FUNCTION")
-        
+    def train_model(self, request, title):
+        print("Called the train functuon")
+        print("HERE I AM")
+        target = get_object_or_404(AiModel, pk=title)
+        print(target)
+        df = pd.read_csv("data/topFiveFeats.csv", sep=',')
+        # CLEAN DATAset!!!!!!!!!!
+
+        # Randomly shuffles the rows, better for training the model later
+        # Also resetting the Index for the dataframe
+        df = df.sample(frac=1).reset_index(drop=True)
+
+        # Initiating a Sequential model with keras
+        model = tf.keras.models.Sequential()
+
+        # Adding layers to the model
+        model.add(tf.keras.layers.Dense(units=self.inputlayer, input_dim=5))
+        model.add(tf.keras.layers.Dropout(self.dropout))
+        model.add(tf.keras.layers.Dense(self.secondlayer, activation='relu'))
+        model.add(tf.keras.layers.Dense(self.thirdlayerlayer, activation='relu'))
+        model.add(tf.keras.layers.Dense(units=1, activation='linear'))
+
+        # Compiling the model
+        opt = tf.keras.optimizers.Adam(lr=self.learningrate)
+        model.compile(loss='mean_squared_error', optimizer=opt, metrics=['accuracy'])
+
+        # Declaring the label and features np.array
+        column_features = []
+        for col in df.columns:
+            if col != "1m":
+                if col != "symbol":
+                    if col != "timestamp":
+                        column_features.append(col)
+
+        # Slicing the dataset to features and labels
+        y = df["1m"].to_numpy()
+        X = df[column_features].to_numpy()
+
+        # Normalizing
+        X = preprocessing.normalize(X)
+
+        # Splitting the dataset
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=self.split)
+
+        # Fitting the model
+        model.fit(X_train, y_train, epochs=self.epochs, batch_size=self.batchsize)
+
+        # Updating the version of the model
+        self.version = self.version + 1
+
+        # save model
+        # Maybe we need to add .h5 to be able to save it?
+        print(self.get_titleversion())
+        model.save(self.get_titleversion())
 
         return render(request, "admin/base.html")
 
