@@ -106,7 +106,17 @@ Prerequisites
 3. Re apply deployment file
 
    ```Bash
-   kubectl apply -f stoink-deploy.yaml # Will pull image:latest from dockerhub
+   kubectl get deployments # Shows current deployment
+   kubectl get pods # Shows current pods
+   # Change version in stoink-deploy.yaml
+   kubectl apply -f stoink-deploy.yaml
+   ```
+
+   OR
+
+   ```Bash
+   kubectl set image deployment <deployment name> <container name>=<repo/image>:<new tag>
+   kubectl set image deployment stoink-deploy stoink=samgun6/stoink:v1.2.0 # Example
    ```
 
 ### Run service
