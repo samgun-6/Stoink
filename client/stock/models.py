@@ -2,6 +2,8 @@ from __future__ import unicode_literals
 import pandas as pd
 from django.contrib.postgres.fields import JSONField
 from django.db import models, transaction
+from django.urls import reverse_lazy
+from django.utils.html import format_html
 from tensorflow.keras.models import Sequential, load_model
 from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
@@ -69,6 +71,14 @@ class AiModel(models.Model):
     deployed = models.BooleanField(default=False)
     dataset = models.ForeignKey(DataSet, null=True, on_delete=models.SET_NULL)
 
+    def train_button(self):
+        return format_html(
+            '''<form action="activate/" method="GET">
+                   <button type="submit"> train </button>
+                </form>''')
+
+
+
     def save(self, *args, **kwargs):
         if not self.deployed:
             return super(AiModel, self).save(*args, **kwargs)
@@ -92,6 +102,7 @@ class AiModel(models.Model):
         self.title = title
 
     def train_model(self, file_name):
+        print("HERE I AM")
         file_to_read = "data/" + str(file_name)
         df = pd.read_csv(file_to_read, sep=',')
         #CLEAN DATAset!!!!!!!!!!

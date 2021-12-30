@@ -1,12 +1,17 @@
+from __future__ import unicode_literals
+
 import pandas as pd
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.forms import forms
-from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import path
-from django.utils.html import format_html
-from django.utils.safestring import mark_safe
+import pandas as pd
+from django.db import models
+from tensorflow.keras.models import load_model
+from sklearn.model_selection import train_test_split
+from sklearn import preprocessing
+import tensorflow as tf
 
 from . import models
 from .models import AiModel, DataSet
@@ -63,7 +68,21 @@ class DataSetAdmin(admin.ModelAdmin):
 
 
 class AiModelAdmin(admin.ModelAdmin):
-    list_display = ("title", "version", "deployed", "dataset", "created", "loss", "accuracy", "learningrate", "inputlayer", "dropout", "secondlayer", "thirdlayer", "epochs", "batchsize", "split")
+    list_display = ("title", "train_button","version", "deployed", "dataset", "created", "loss", "accuracy", "learningrate", "inputlayer", "dropout", "secondlayer", "thirdlayer", "epochs", "batchsize", "split")
+
+    def get_urls(self):
+        print("IM IN THE RIGHT FUNCTION")
+        urls = super().get_urls()
+        my_urls = [
+            path('train-model/<int:pk>/', self.train_model, name="admin_train_model"),
+        ]
+        return my_urls + urls
+
+    def train_model(self, request, pk):
+        print("IM IN THE RIGHT FUNCTION")
+        
+
+        return render(request, "admin/base.html")
 
 
     #def my_button(self, obj):
@@ -71,8 +90,7 @@ class AiModelAdmin(admin.ModelAdmin):
     #            '<button type = "submit" name = "pk" value = "title" id = "pk"> Deploy </button>'
     #            '</form>')
 
-    def train_model(self, request):
-        return render(request, "admin/base.html")
+
 
 
 admin.site.register(AiModel, AiModelAdmin)
