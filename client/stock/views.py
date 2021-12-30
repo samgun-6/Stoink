@@ -1,32 +1,22 @@
-from django.http import HttpResponse
 from django.shortcuts import render
-import numpy as np
 import pandas as pd
-import datetime as dt
-from pandas._libs.tslibs import timestamps
-
-from sklearn.preprocessing import MinMaxScaler
-from tensorflow.keras.models import Sequential, load_model
-from tensorflow.keras.layers import Dense, Dropout, LSTM
-
-#def stock(request):
-   #return HttpResponse("You're at the stocks index.")
-
-
-#class DeployedModel:
-#   name = "Santas Model"
-
-#   def set_deployed_model(self, model):
-#      self.name = model
-
-#   def get_deployed_model(self):
-#      return self.name
+from tensorflow.keras.models import load_model
 from .models import AiModel, DataSet
 
+
+# Not working
+def train(request):
+   return render(request, "admin/base.html")
+
+
+# Not working
+def eval(request):
+   return render(request, "admin/base.html")
 
 
 def stock(request):
    return render(request, 'front/stock.html')
+
 
 def testFunc(request):
    if request.method == 'GET':

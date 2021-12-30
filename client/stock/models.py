@@ -2,9 +2,7 @@ from __future__ import unicode_literals
 import pandas as pd
 from django.contrib.postgres.fields import JSONField
 from django.db import models, transaction
-from django.urls import reverse_lazy
-from django.utils.html import format_html
-from tensorflow.keras.models import Sequential, load_model
+from tensorflow.keras.models import load_model
 from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
 import tensorflow as tf
@@ -47,7 +45,8 @@ class AiModel(models.Model):
     split = models.FloatField(default=0.3727)
     version = models.IntegerField(default=0)
     deployed = models.BooleanField(default=False)
-    dataset = models.ForeignKey(DataSet, null=True, on_delete=models.SET_NULL)
+    dataset = models.ForeignKey(DataSet, related_name='dataset', null=True, on_delete=models.SET_NULL)
+    evaluation_dataset = models.ForeignKey(DataSet,related_name='evaluation_dataset', null=True, on_delete=models.SET_NULL)
     train_dataset = models.CharField(max_length=30, default= "Untrained")
 
 
@@ -127,19 +126,45 @@ class AiModel(models.Model):
         temp = self.version + 1
         self.version = temp
 
+        # Evaluation
+        train_loss, train_acc = model.evaluate(X_train, y_train)
+        self.loss = train_loss
+        self.accuracy = train_acc
+
         # save model
         model.save(str(self.get_title() + ".h5"))
         self.train_dataset = self.dataset.get_title()
+
         # return statement and saving the update varaible to .self
         self.save()
         return str("Trained model successfully with " + self.dataset.get_title() + " dataset")
 
-    def evaluate_model(self, X_test, y_test):
+    def evaluate_model(self):
+        # Loading model
         model = load_model(self.title)
+
+        # Loading dataset, evaluation_dataset
+        df = self.evaluation_dataset.loadframe()
+        print(df)
+
+        # Declaring the label and features np.array
+        column_features = []
+        for col in df.columns:
+            if col != "1m":
+                if col != "symbol":
+                    if col != "timestamp":
+                        column_features.append(col)
+
+        # Splitting dataset and normalizing
+        X = df[column_features].to_numpy()
+        y = df["1m"].to_numpy()
+
+        # Normalizing
+        X = preprocessing.normalize(X)
+
         # Model evaluation
-        test_loss, test_acc = model.evaluate(X_test, y_test)
-        self.loss = test_loss
-        self.accuracy = test_acc
+        test_loss, test_acc = model.evaluate(X, y)
+
         return test_loss, test_acc
 
 
