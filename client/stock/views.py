@@ -24,8 +24,6 @@ from tensorflow.keras.layers import Dense, Dropout, LSTM
 from .models import AiModel, DataSet
 
 
-def trainAndEvaluate(request):
-   return render(request, "admin/base.html")
 
 def stock(request):
    return render(request, 'front/stock.html')
