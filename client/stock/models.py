@@ -2,9 +2,7 @@ from __future__ import unicode_literals
 import pandas as pd
 from django.contrib.postgres.fields import JSONField
 from django.db import models, transaction
-from django.urls import reverse_lazy
-from django.utils.html import format_html
-from tensorflow.keras.models import Sequential, load_model
+from tensorflow.keras.models import load_model
 from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
 import tensorflow as tf

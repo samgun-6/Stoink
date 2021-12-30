@@ -1,8 +1,6 @@
 from __future__ import unicode_literals
-
-import pandas as pd
 from django.conf.urls import url
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.contrib.auth.models import Group
 from django.forms import forms
 from django.shortcuts import render, get_object_or_404
@@ -10,14 +8,8 @@ from django.urls import path, reverse
 import pandas as pd
 from django.db import models
 from django.utils.html import format_html
-from tensorflow.keras.models import load_model
-from sklearn.model_selection import train_test_split
-from sklearn import preprocessing
-import tensorflow as tf
-
 from . import models
 from .models import AiModel, DataSet
-#from .admin import AiModelAdmin, DataSetAdmin
 
 admin.site.site_header = "Admin page for managing training, loading, evaluating models etc."
 admin.site.unregister(Group)
@@ -82,6 +74,7 @@ class AiModelAdmin(admin.ModelAdmin):
 
     account_actions.short_description = 'Account Actions'
     account_actions.allow_tags = True
+
     def get_urls(self):
         print("IM IN THE RIGHT FUNCTION")
         urls = super().get_urls()
@@ -99,16 +92,16 @@ class AiModelAdmin(admin.ModelAdmin):
         ]
         return custom_urls + urls
 
-
     def train_model(self, request, title):
         target = get_object_or_404(AiModel, pk=title)
         print(target.train_model())
         return render(request, "admin/base.html")
 
     def evaluate_model(self, request, title):
-        print("WE ARE INSIDE THE eval!!!")
         target = get_object_or_404(AiModel, pk=title)
-        print(target.evaluate_model())
+        loss, acc = target.evaluate_model()
+        message_string = "Evaluation complete, loss : " + str(loss) + " acc : " + str(acc)
+        messages.success(request, message_string)
         return render(request, "admin/base.html")
 
 
