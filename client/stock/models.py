@@ -31,28 +31,6 @@ class DataSet(models.Model):
         self.title = title
 
 
-#class Row(models.Model):
-#    label = models.FloatField(default=0.0)
-#    reportedEPS = models.FloatField(default=0.0)
-#    totalNonCurrentAssets = models.FloatField(default=0.0)
-#    depreciation = models.FloatField(default=0.0)
-#    proceedsFromRepaymentsOfShortTermDebt = models.FloatField(default=0.0)
-#    currentAccountsPayable = models.FloatField(default=0.0)
-#    symbol = models.CharField(max_length=30)
-#    timestamp = models.CharField(max_length=30)
-#    dataset = models.ForeignKey(DataSet, on_delete=models.CASCADE)
-
- #   def get_data_prediction(self):
-#        list_of_data = [self.label, self.reportedEPS, self.totalNonCurrentAssets, self.depreciation, self.proceedsFromRepaymentsOfShortTermDebt
-#                        , self.currentAccountsPayable]
-#        return list_of_data
-
-#    def get_all_data(self):
-#        list_of_data = [str(self.label), str(self.reportedEPS), str(self.totalNonCurrentAssets), str(self.depreciation),
-#                        str(self.proceedsFromRepaymentsOfShortTermDebt)
-#            , str(self.currentAccountsPayable), str(self.symbol), str(self.timestamp)]
-#        return list_of_data
-
 class AiModel(models.Model):
     # Title is also the name of the file that holds the model, which we load from the repo as a .h5 file
     title = models.CharField(max_length=30)
@@ -70,14 +48,7 @@ class AiModel(models.Model):
     version = models.IntegerField(default=0)
     deployed = models.BooleanField(default=False)
     dataset = models.ForeignKey(DataSet, null=True, on_delete=models.SET_NULL)
-    train = models.BooleanField(default=False)
-
-    def train_button(self):
-        return format_html(
-            '''<button type="button">
-    <a href="train"> Train </a>
-</button>''')
-
+    train_dataset = models.CharField(max_length=30, default= "Untrained")
 
 
     def save(self, *args, **kwargs):
@@ -110,9 +81,9 @@ class AiModel(models.Model):
     def set_title(self, title):
         self.title = title
 
-    def train_model(self, file_name):
+    def train_model(self):
         print("HERE I AM")
-        file_to_read = "data/" + str(file_name)
+        file_to_read = "data/topFiveFeats.csv"
         df = pd.read_csv(file_to_read, sep=',')
         #CLEAN DATAset!!!!!!!!!!
 
@@ -127,7 +98,7 @@ class AiModel(models.Model):
         model.add(tf.keras.layers.Dense(units=self.inputlayer, input_dim=5))
         model.add(tf.keras.layers.Dropout(self.dropout))
         model.add(tf.keras.layers.Dense(self.secondlayer, activation='relu'))
-        model.add(tf.keras.layers.Dense(self.thirdlayerlayer, activation='relu'))
+        model.add(tf.keras.layers.Dense(self.thirdlayer, activation='relu'))
         model.add(tf.keras.layers.Dense(units=1, activation='linear'))
 
         # Compiling the model
@@ -159,9 +130,11 @@ class AiModel(models.Model):
         self.version = self.version + 1
 
         # save model
-        # Maybe we need to add .h5 to be able to save it?
-        print(self.get_titleversion())
-        model.save(self.get_titleversion())
+        print(str(self.get_titleversion() + ".h5"))
+        model.save(str(self.get_titleversion() + ".h5"))
+        self.train_dataset = self.dataset
+        # return statement
+        return str("Trained model successfully with " + self.dataset.get_title() + " dataset")
 
     def evaluate_model(self, X_test, y_test):
         model = load_model(self.title)
@@ -170,12 +143,6 @@ class AiModel(models.Model):
         self.loss = test_loss
         self.accuracy = test_acc
         return test_loss, test_acc
-
-    def make_prediction(self, data):
-        model = load_model(self.title)
-        # Code for prediction
-        prediction = model.predict(data)
-        return prediction
 
 
 class Prediction:

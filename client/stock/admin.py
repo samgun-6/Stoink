@@ -1,13 +1,15 @@
 from __future__ import unicode_literals
 
 import pandas as pd
+from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.forms import forms
 from django.shortcuts import render, get_object_or_404
-from django.urls import path
+from django.urls import path, reverse
 import pandas as pd
 from django.db import models
+from django.utils.html import format_html
 from tensorflow.keras.models import load_model
 from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
@@ -68,81 +70,45 @@ class DataSetAdmin(admin.ModelAdmin):
 
 
 class AiModelAdmin(admin.ModelAdmin):
-    list_display = ("title", "train_button", "train","version", "deployed", "dataset", "created", "loss", "accuracy", "learningrate", "inputlayer", "dropout", "secondlayer", "thirdlayer", "epochs", "batchsize", "split")
+    list_display = ("title", "account_actions","train_dataset","version", "deployed", "dataset", "created", "loss", "accuracy", "learningrate", "inputlayer", "dropout", "secondlayer", "thirdlayer", "epochs", "batchsize", "split")
 
+    def account_actions(self, obj):
+        return format_html(
+            '<a class="button" href="{}">Train</a>&nbsp;'
+            '<a class="button" href="{}">Evaluate</a>',
+            reverse('admin:model-train', args=[obj.pk]),
+            reverse('admin:model-evaluate', args=[obj.pk]),
+        )
 
+    account_actions.short_description = 'Account Actions'
+    account_actions.allow_tags = True
     def get_urls(self):
         print("IM IN THE RIGHT FUNCTION")
         urls = super().get_urls()
-        my_urls = [
-            path('train/<int:title>/', view =self.train_model, name="train"),
+        custom_urls = [
+            url(
+                r'^(?P<title>.+)/train/$',
+                self.admin_site.admin_view(self.train_model),
+                name='model-train',
+            ),
+            url(
+                r'^(?P<title>.+)/evaluate/$',
+                self.admin_site.admin_view(self.train_model),
+                name='model-evaluate',
+            ),
         ]
-        return my_urls + urls
+        return custom_urls + urls
+
 
     def train_model(self, request, title):
-        print("Called the train functuon")
-        print("HERE I AM")
+        print("WE ARE INSIDE THE RIGHT FUNCTION; YIPPPIE!!!!!!!")
         target = get_object_or_404(AiModel, pk=title)
-        print(target)
-        df = pd.read_csv("data/topFiveFeats.csv", sep=',')
-        # CLEAN DATAset!!!!!!!!!!
-
-        # Randomly shuffles the rows, better for training the model later
-        # Also resetting the Index for the dataframe
-        df = df.sample(frac=1).reset_index(drop=True)
-
-        # Initiating a Sequential model with keras
-        model = tf.keras.models.Sequential()
-
-        # Adding layers to the model
-        model.add(tf.keras.layers.Dense(units=self.inputlayer, input_dim=5))
-        model.add(tf.keras.layers.Dropout(self.dropout))
-        model.add(tf.keras.layers.Dense(self.secondlayer, activation='relu'))
-        model.add(tf.keras.layers.Dense(self.thirdlayerlayer, activation='relu'))
-        model.add(tf.keras.layers.Dense(units=1, activation='linear'))
-
-        # Compiling the model
-        opt = tf.keras.optimizers.Adam(lr=self.learningrate)
-        model.compile(loss='mean_squared_error', optimizer=opt, metrics=['accuracy'])
-
-        # Declaring the label and features np.array
-        column_features = []
-        for col in df.columns:
-            if col != "1m":
-                if col != "symbol":
-                    if col != "timestamp":
-                        column_features.append(col)
-
-        # Slicing the dataset to features and labels
-        y = df["1m"].to_numpy()
-        X = df[column_features].to_numpy()
-
-        # Normalizing
-        X = preprocessing.normalize(X)
-
-        # Splitting the dataset
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=self.split)
-
-        # Fitting the model
-        model.fit(X_train, y_train, epochs=self.epochs, batch_size=self.batchsize)
-
-        # Updating the version of the model
-        self.version = self.version + 1
-
-        # save model
-        # Maybe we need to add .h5 to be able to save it?
-        print(self.get_titleversion())
-        model.save(self.get_titleversion())
+        print(" -------------------    ")
+        print(target.get_titleversion())
+        print(" -------------------    ")
+        print(target.train_model())
 
         return render(request, "admin/base.html")
-
-
-    #def my_button(self, obj):
-    #    return mark_safe('<form action = "setModel" method = "POST">'
-    #            '<button type = "submit" name = "pk" value = "title" id = "pk"> Deploy </button>'
-    #            '</form>')
-
-
 
 
 admin.site.register(AiModel, AiModelAdmin)
