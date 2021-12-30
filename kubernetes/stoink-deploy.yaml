@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: stoink
-          image: samgun6/stoink:latest
+          image: samgun6/stoink:v1.2.0
           imagePullPolicy: IfNotPresent
           ports:
           - containerPort: 8000
