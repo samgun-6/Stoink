@@ -93,7 +93,7 @@ class AiModelAdmin(admin.ModelAdmin):
             ),
             url(
                 r'^(?P<title>.+)/evaluate/$',
-                self.admin_site.admin_view(self.train_model),
+                self.admin_site.admin_view(self.evaluate_model),
                 name='model-evaluate',
             ),
         ]
@@ -110,6 +110,10 @@ class AiModelAdmin(admin.ModelAdmin):
 
         return render(request, "admin/base.html")
 
+    def evaluate_model(self, request, title):
+        print("WE ARE INSIDE THE evaluation function; YIPPPIE!!!!!!!")
+        target = get_object_or_404(AiModel, pk=title)
+        target.evaluate_model()
 
 admin.site.register(AiModel, AiModelAdmin)
 admin.site.register(DataSet, DataSetAdmin)

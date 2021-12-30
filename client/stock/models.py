@@ -59,13 +59,6 @@ class AiModel(models.Model):
                 deployed=True).update(deployed=False)
             return super(AiModel, self).save(*args, **kwargs)
 
-    def save(self, *args, **kwargs):
-        if not self.train:
-            return super(AiModel, self).save(*args, **kwargs)
-        with transaction.atomic():
-            AiModel.objects.filter(
-                train=True).update(train=False)
-            return super(AiModel, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
@@ -81,12 +74,16 @@ class AiModel(models.Model):
     def set_title(self, title):
         self.title = title
 
-    def train_model(self):
-        print("HERE I AM")
-        file_to_read = "data/topFiveFeats.csv"
-        df = pd.read_csv(file_to_read, sep=',')
-        #CLEAN DATAset!!!!!!!!!!
+    def set_version(self, new):
+        self.version = new
 
+    def set_train_dataset(self, new):
+        self.train_dataset = new
+
+    def train_model(self):
+
+        df = self.dataset.loadframe()
+        print(df)
         # Randomly shuffles the rows, better for training the model later
         # Also resetting the Index for the dataframe
         df = df.sample(frac=1).reset_index(drop=True)
@@ -127,13 +124,14 @@ class AiModel(models.Model):
         model.fit(X_train, y_train, epochs=self.epochs, batch_size=self.batchsize)
 
         # Updating the version of the model
-        self.version = self.version + 1
+        temp = self.version + 1
+        self.version = temp
 
         # save model
-        print(str(self.get_titleversion() + ".h5"))
-        model.save(str(self.get_titleversion() + ".h5"))
-        self.train_dataset = self.dataset
-        # return statement
+        model.save(str(self.get_title() + ".h5"))
+        self.train_dataset = self.dataset.get_title()
+        # return statement and saving the update varaible to .self
+        self.save()
         return str("Trained model successfully with " + self.dataset.get_title() + " dataset")
 
     def evaluate_model(self, X_test, y_test):
