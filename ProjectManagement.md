@@ -416,19 +416,82 @@ Keep meetings as usual during the holidays.<br>
 
 
 
-**Agenda for next meeting 27/12:**<br>
+**Agenda for next meeting 29/12:**<br>
 Standup.<br>
 
 
 ---
 ### **Week 52**
+#### **Meeting 27/12**.
+
+**Missing:**<br>
+Effat Mahmud Enti.<br>
+
+**Discussions:**<br>
+progress so far.<br>
+Discussing Unit testing.<br>
+
+**Decisions:**<br>
+dividing tasks<br>
 
 
+| Task        | Responsible |
+| ----------- | ----------- |
+| update markdown  |  Eric Hallberg     |
+| redo allstocks page  |  Zhiijie Wei     |
+| finish and implement k8s   |  Samuel Gunnarsson     |
 
+
+**Agenda for next meeting 27/12:**<br>
+Standup.<br>
+
+#### **Meeting 29/12**.
+
+**Missing:**<br>
+Effat Mahmud Enti.<br>
+
+**Discussions:**<br>
+progress so far.<br>
+Discussing Unit testing.<br>
+
+**Decisions:**<br>
+dividing tasks<br>
+
+
+| Task        | Responsible |
+| ----------- | ----------- |
+| fix unit test Check columns cleaned data  |  Eric Hallberg     |
+| Unit test, train_model()   |  Samuel Gunnarsson     |
+| Unit test, allstocks, predict and testFunc   |  Zhiijie Wei     |
+
+**Agenda for next meeting 3/1:**<br>
+Standup.<br>
 
 ---
 ### **Week 1**
 
+#### **Meeting 3/1**.
+
+**Missing:**<br>
+Effat Mahmud Enti.<br>
+
+**Discussions:**<br>
+progress so far.<br>
+Discussing Unit testing.<br>
+Model versioning and loading.<br>
+
+**Decisions:**<br>
+dividing tasks<br>
+Start report latest Thursday.<br>
+
+| Task        | Responsible |
+| ----------- | ----------- |
+| solve name issues with .h5  |  Eric Hallberg     |
+| Diagrams for report  |  Samuel Gunnarsson     |
+| Unit test, evaluate_model()    |  Samuel Gunnarsson     |
+
+**Agenda for next meeting 27/12:**<br>
+Standup.<br>
 
 
 ---
@@ -436,11 +499,11 @@ Standup.<br>
 ### Attendencies 
 |Team members| 11/8 | 11/10 | 11/15 | 11/17 | 11/22 | 11/24 |  11/29 | 12/1 | 12/6 | 12/8 | 12/10| 12/13 | 12/15 | 12/20| 12/22|12/27| 12/29 | 1/3
 |---|---| ------ |----|---| ---| ---| ---|---| ---| ---| ---|---| ---|---|--- |--- |--- |---|
-| Eemil Jeskanen | ✅ |✅| ✅ | ✅| ✅| ✅| ✅| ❌| ❌| ❌| ❌| ❌| ❌|❌|❌|---|---|---|
-| Effat Enti| ✅ |✅| ✅| ✅| ✅| ✅|❌ | ✅|❌ | ✅| ✅| ❌| ✅| ❌|❌| ---|---|---|---|---|
-| Eric Hallberg| ✅ |✅ | ✅ | ✅| ✅ |✅| ✅| ✅| ✅ |✅| ✅| ✅| ✅ |✅| ✅| ---|---|---|
-| Samuel Gunnarsson| ✅ |✅| ✅| ✅| ✅ |✅| ✅| ✅|✅ |✅| ✅| ✅|✅ |✅| ✅| ---|---| ---|---|
-| Zhiijie Wei   | ✅ |✅| ✅| ✅| ✅| ✅| ✅| ✅| ✅| ✅| ✅ |✅ | ❌ |✅ | ✅| ---| ---|---|
+| Eemil Jeskanen | ✅ |✅| ✅ | ✅| ✅| ✅| ✅| ❌| ❌| ❌| ❌| ❌| ❌|❌|❌|❌|❌|❌|
+| Effat Enti| ✅ |✅| ✅| ✅| ✅| ✅|❌ | ✅|❌ | ✅| ✅| ❌| ✅| ❌|❌| ❌|❌|❌|❌|❌|
+| Eric Hallberg| ✅ |✅ | ✅ | ✅| ✅ |✅| ✅| ✅| ✅ |✅| ✅| ✅| ✅ |✅| ✅| ✅|✅|✅|
+| Samuel Gunnarsson| ✅ |✅| ✅| ✅| ✅ |✅| ✅| ✅|✅ |✅| ✅| ✅|✅ |✅| ✅| ✅|✅| ✅|✅|
+| Zhiijie Wei   | ✅ |✅| ✅| ✅| ✅| ✅| ✅| ✅| ✅| ✅| ✅ |✅ | ❌ |✅ | ✅| ✅| ✅|✅-|
 
 
 
