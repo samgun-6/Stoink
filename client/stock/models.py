@@ -67,7 +67,7 @@ class AiModel(models.Model):
         return temp
 
     def get_titleversion(self):
-        temp = self.title + str(self.version)
+        temp = str(self.title + "_v" + str(self.version))
         return temp
 
     def set_title(self, title):
@@ -132,12 +132,12 @@ class AiModel(models.Model):
         self.accuracy = train_acc
 
         # save model
-        model.save(str(self.get_title() + ".h5"))
+        model.save(str(self.get_titleversion()) + ".h5")
         self.train_dataset = self.dataset.get_title()
 
         # return statement and saving the update varaible to .self
         self.save()
-        return str("Trained model successfully with " + self.dataset.get_title() + " dataset")
+        return str("Trained model successfully with " + self.dataset.get_title() + " dataset , named : " + self.get_titleversion())
 
     def evaluate_model(self):
         # Loading model

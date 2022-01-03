@@ -31,7 +31,7 @@ def testFunc(request):
 
       # Load the model and predicting
       temp = AiModel.objects.get(deployed=True)
-      model = load_model(temp.get_title())
+      model = load_model(temp.get_titleversion() + ".h5")
 
       # make prediction
       prediction = str(model.predict(df))
@@ -581,7 +581,7 @@ def predict(request):
 
    # Load the model and predicting
    temp = AiModel.objects.get(deployed=True)
-   model = load_model(temp.get_title())
+   model = load_model(temp.get_titleversion() + ".h5")
 
    predictions = str(model.predict(grouped))
    predictions_in_percentage = float(predictions[2:12]) *100
@@ -628,7 +628,7 @@ def allstocks(request):
    
    # Load the model and predicting
    temp = AiModel.objects.get(deployed=True)
-   model = load_model(temp.get_title())
+   model = load_model(temp.get_titleversion() + ".h5")
 
    print(grouped)
 
