@@ -1,32 +1,22 @@
-from django.http import HttpResponse
 from django.shortcuts import render
-import numpy as np
 import pandas as pd
-import datetime as dt
-from pandas._libs.tslibs import timestamps
-
-from sklearn.preprocessing import MinMaxScaler
-from tensorflow.keras.models import Sequential, load_model
-from tensorflow.keras.layers import Dense, Dropout, LSTM
-
-#def stock(request):
-   #return HttpResponse("You're at the stocks index.")
-
-
-#class DeployedModel:
-#   name = "Santas Model"
-
-#   def set_deployed_model(self, model):
-#      self.name = model
-
-#   def get_deployed_model(self):
-#      return self.name
+from tensorflow.keras.models import load_model
 from .models import AiModel, DataSet
 
+
+# Not working
+def train(request):
+   return render(request, "admin/base.html")
+
+
+# Not working
+def eval(request):
+   return render(request, "admin/base.html")
 
 
 def stock(request):
    return render(request, 'front/stock.html')
+
 
 def testFunc(request):
    if request.method == 'GET':
@@ -41,7 +31,7 @@ def testFunc(request):
 
       # Load the model and predicting
       temp = AiModel.objects.get(deployed=True)
-      model = load_model(temp.get_title())
+      model = load_model(temp.get_titleversion() + ".h5")
 
       # make prediction
       prediction = str(model.predict(df))
@@ -591,7 +581,7 @@ def predict(request):
 
    # Load the model and predicting
    temp = AiModel.objects.get(deployed=True)
-   model = load_model(temp.get_title())
+   model = load_model(temp.get_titleversion() + ".h5")
 
    predictions = str(model.predict(grouped))
    predictions_in_percentage = float(predictions[2:12]) *100
@@ -638,7 +628,7 @@ def allstocks(request):
    
    # Load the model and predicting
    temp = AiModel.objects.get(deployed=True)
-   model = load_model(temp.get_title())
+   model = load_model(temp.get_titleversion() + ".h5")
 
    print(grouped)
 
