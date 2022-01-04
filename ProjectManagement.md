@@ -192,6 +192,7 @@ Ask Ta about what features is good enough, SV-session.<br>
 
 | Task        | Responsible |
 | ----------- | ----------- |
+| Correlation analysis on all features  | Eric Hallberg        |
 
 
 **Agenda for next meeting 1/12:**<br>
@@ -249,34 +250,248 @@ merging Dev into main.<br>
 
 | Task        | Responsible |
 | ----------- | ----------- |
-| Add market category as aa feature to the dataset  | Eric Hallberg        |
+| Add market category as a feature to the dataset  | Eric Hallberg        |
+| Change all data in features to % difference since last report  | Eric Hallberg        |
 
 
-**Agenda for next meeting 6/12:**<br>
+**Agenda for next meeting 8/12:**<br>
 Standup.<br>
 Decide which model to use.<br>
 
+#### **Meeting 8/12**.
+
+**Missing:**<br>
+None.<br>
+
+**Discussions:**<br>
+What task are left to focus on.<br>
+Discussion about testing.<br>
+
+
+
+**Decisions:**<br>
+Discarding the idea of LSTM.<br>
+Ask Ta about, Testing and model types.<br>
+
+
+
+| Task        | Responsible |
+| ----------- | ----------- |
+| Start and experiment with model      | All members      |
+| Fix data cleaning file and put in project  | Eric Hallberg        |
+
+**Agenda for next meeting 10/12:**<br>
+Standup.<br>
+Decide on a model and deploy it for now.<br>
+Check Assignment description and add tasks accodring.<br>
+
+
+#### **Extra Meeting 10/12**.
+
+**Missing:**<br>
+None.<br>
+
+**Discussions:**<br>
+What task are left to focus on.<br>
+Discussion about testing.<br>
+
+
+**Decisions:**<br>
+made task cards i trello from the remaining requirments.<br>
+Decide on a intial model to deploy.<br>
+
+
+
+| Task        | Responsible |
+| ----------- | ----------- |
+| Start and experiment with model      | All members      |
+
+
+**Agenda for next meeting 13/12:**<br>
+Standup.<br>
+Decide on a model and deploy it for now.<br>
+Check Assignment description and add tasks accodring.<br>
+
+
+
 ---
 ### **Week 50**
+#### **Meeting 13/12**.
+
+**Missing:**<br>
+Effat Mahmud Enti.<br>
+
+**Discussions:**<br>
+datastorage, store clean or raw data in db.<br>
+discussing the meaning of dynamic training of model via admin page.<br>
+How good does the model need to be.<br>
 
 
+
+**Decisions:**<br>
+Ask TA about the 3 things we discussed.<br>
+
+
+
+| Task        | Responsible |
+| ----------- | ----------- |
+| Code functions in models.py for training, evaluating and predicting.   |   Eric Hallberg    |
+
+
+**Agenda for next meeting 15/12:**<br>
+Standup.<br>
+
+
+#### **Meeting 15/12**.
+
+**Missing:**<br>
+Zhijie Wei.<br>
+
+**Discussions:**<br>
+Planning the structure for the fair presentation.<br>
+What is left to do.<br>
+
+**Decisions:**<br>
+splitting the presentation between the members<br>
+
+
+
+| Task        | Responsible |
+| ----------- | ----------- |
+| Idea, Data Source, Architecture   |  Samuel Gunnarsson      |
+| Fronted, To Do, Obstacles   |  Effat Mahmud Enti      |
+| Data Processing, Ml pipeline, Live Demo   |  Eric Hallberg     |
+| Unit test datacleaning function   |  Eric Hallberg     |
+
+
+**Agenda for next meeting 20/12:**<br>
+Standup.<br>
 
 
 ---
 ### **Week 51**
 
+#### **Meeting 20/12**.
 
+**Missing:**<br>
+Effat Mahmud Enti.<br>
+
+**Discussions:**<br>
+Planning the structure for the fair presentation.<br>
+What is left to do.<br>
+
+**Decisions:**<br>
+Moving Wednesday 22/12 meeting to 09:00.<br>
+
+
+| Task        | Responsible |
+| ----------- | ----------- |
+| loading and saving the model as Django model   |  Eric Hallberg     |
+| Setup basic Admin page   |  Eric Hallberg     |
+| Showing results and attributes of evaluation/retraining in the admin page in Admin.py |  Eric Hallberg     |
+
+**Agenda for next meeting 22/12:**<br>
+Standup.<br>
+
+#### **Meeting 22/12**.
+
+**Missing:**<br>
+Effat Mahmud Enti.<br>
+
+**Discussions:**<br>
+Dividing more tasks<br>
+
+**Decisions:**<br>
+Keep meetings as usual during the holidays.<br>
+
+
+| Task        | Responsible |
+| ----------- | ----------- |
+| Upload via admin page an CSv file with cleaned data  |  Eric Hallberg     |
+| add func to deploy a model, with deployment button in admin page   |  Eric Hallberg     |
+| add evaluate and retrain func with buttons in admin page   |  Eric Hallberg     |
+| fix price into percentage value in stock and all stocks page   |  Zhiijie Wei     |
+| Deploy system on kubernetes   |  Samuel Gunnarsson     |
+| Load data into Django models & query the database |  Samuel Gunnarsson     |
+
+
+
+**Agenda for next meeting 29/12:**<br>
+Standup.<br>
 
 
 ---
 ### **Week 52**
+#### **Meeting 27/12**.
+
+**Missing:**<br>
+Effat Mahmud Enti.<br>
+
+**Discussions:**<br>
+progress so far.<br>
+Discussing Unit testing.<br>
+
+**Decisions:**<br>
+dividing tasks<br>
 
 
+| Task        | Responsible |
+| ----------- | ----------- |
+| update markdown  |  Eric Hallberg     |
+| redo allstocks page  |  Zhiijie Wei     |
+| finish and implement k8s   |  Samuel Gunnarsson     |
 
+
+**Agenda for next meeting 27/12:**<br>
+Standup.<br>
+
+#### **Meeting 29/12**.
+
+**Missing:**<br>
+Effat Mahmud Enti.<br>
+
+**Discussions:**<br>
+progress so far.<br>
+Discussing Unit testing.<br>
+
+**Decisions:**<br>
+dividing tasks<br>
+
+
+| Task        | Responsible |
+| ----------- | ----------- |
+| fix unit test Check columns cleaned data  |  Eric Hallberg     |
+| Unit test, train_model()   |  Samuel Gunnarsson     |
+| Unit test, allstocks, predict and testFunc   |  Zhiijie Wei     |
+
+**Agenda for next meeting 3/1:**<br>
+Standup.<br>
 
 ---
 ### **Week 1**
 
+#### **Meeting 3/1**.
+
+**Missing:**<br>
+Effat Mahmud Enti.<br>
+
+**Discussions:**<br>
+progress so far.<br>
+Discussing Unit testing.<br>
+Model versioning and loading.<br>
+
+**Decisions:**<br>
+dividing tasks<br>
+Start report latest Thursday.<br>
+
+| Task        | Responsible |
+| ----------- | ----------- |
+| solve name issues with .h5  |  Eric Hallberg     |
+| Diagrams for report  |  Samuel Gunnarsson     |
+| Unit test, evaluate_model()    |  Samuel Gunnarsson     |
+
+**Agenda for next meeting 27/12:**<br>
+Standup.<br>
 
 
 ---
@@ -284,11 +499,11 @@ Decide which model to use.<br>
 ### Attendencies 
 |Team members| 11/8 | 11/10 | 11/15 | 11/17 | 11/22 | 11/24 |  11/29 | 12/1 | 12/6 | 12/8 | 12/10| 12/13 | 12/15 | 12/20| 12/22|12/27| 12/29 | 1/3
 |---|---| ------ |----|---| ---| ---| ---|---| ---| ---| ---|---| ---|---|--- |--- |--- |---|
-| Eemil Jeskanen | ✅ |✅| ✅ | ✅| ✅| ✅| ✅| ❌| ❌| ❌| ❌| ❌| ❌|❌|❌|---|---|---|
-| Effat Enti| ✅ |✅| ✅| ✅| ✅| ✅|❌ | ✅|❌ | ✅| ✅| ❌| ✅| ❌|❌| ---|---|---|---|---|
-| Eric Hallberg| ✅ |✅ | ✅ | ✅| ✅ |✅| ✅| ✅| ✅ |✅| ✅| ✅| ✅ |✅| ✅| ---|---|---|
-| Samuel Gunnarsson| ✅ |✅| ✅| ✅| ✅ |✅| ✅| ✅|✅ |✅| ✅| ✅|✅ |✅| ✅| ---|---| ---|---|
-| Zhiijie Wei   | ✅ |✅| ✅| ✅| ✅| ✅| ✅| ✅| ✅| ✅| ✅ |✅ | ❌ |✅ | ✅| ---| ---|---|
+| Eemil Jeskanen | ✅ |✅| ✅ | ✅| ✅| ✅| ✅| ❌| ❌| ❌| ❌| ❌| ❌|❌|❌|❌|❌|❌|
+| Effat Enti| ✅ |✅| ✅| ✅| ✅| ✅|❌ | ✅|❌ | ✅| ✅| ❌| ✅| ❌|❌| ❌|❌|❌|❌|❌|
+| Eric Hallberg| ✅ |✅ | ✅ | ✅| ✅ |✅| ✅| ✅| ✅ |✅| ✅| ✅| ✅ |✅| ✅| ✅|✅|✅|
+| Samuel Gunnarsson| ✅ |✅| ✅| ✅| ✅ |✅| ✅| ✅|✅ |✅| ✅| ✅|✅ |✅| ✅| ✅|✅| ✅|✅|
+| Zhiijie Wei   | ✅ |✅| ✅| ✅| ✅| ✅| ✅| ✅| ✅| ✅| ✅ |✅ | ❌ |✅ | ✅| ✅| ✅|✅-|
 
 
 
