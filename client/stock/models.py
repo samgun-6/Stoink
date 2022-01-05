@@ -141,7 +141,7 @@ class AiModel(models.Model):
 
     def evaluate_model(self):
         # Loading model
-        model = load_model(self.title)
+        model = load_model(self.get_titleversion() + ".h5")
 
         # Loading dataset, evaluation_dataset
         df = self.evaluation_dataset.loadframe()
