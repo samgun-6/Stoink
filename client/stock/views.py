@@ -18,7 +18,7 @@ def stock(request):
    return render(request, 'front/stock.html')
 
 
-def testFunc(request):
+def manualPredict(request):
    if request.method == 'GET':
       # Get all the values from input form
       var1 = (float(request.GET['Inputone']))

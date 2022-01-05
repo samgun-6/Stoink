@@ -9,7 +9,7 @@ from django.urls import path
 urlpatterns = [
     url(r'^stock/$', views.stock, name='stock'),
     path('predict', views.predict, name='predict'),
-    path('testFunc', views.testFunc, name='testFunc'),
+    path('manualPredict', views.manualPredict, name='manualPredict'),
     path('allstocks', views.allstocks, name='allstocks'),
     path('train', views.train, name='train'),
     path('eval', views.eval, name='model-evaluate'),
