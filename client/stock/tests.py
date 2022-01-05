@@ -26,7 +26,7 @@ class AiModelTestCase(TestCase):
         testModel.train_model()
 
         # Assert if the file was created
-        file_exists = exists('UnitModel_v1.h5')
+        file_exists = exists((testModel.get_titleversion() + ".h5"))
         self.assertTrue(file_exists, msg='File does not exist')
 
 # Create your tests here.
