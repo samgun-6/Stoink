@@ -490,20 +490,45 @@ Start report latest Thursday.<br>
 | Diagrams for report  |  Samuel Gunnarsson     |
 | Unit test, evaluate_model()    |  Samuel Gunnarsson     |
 
-**Agenda for next meeting 27/12:**<br>
+**Agenda for next meeting 5/1:**<br>
 Standup.<br>
+plan for A2 writing.<br>
+
+#### **Meeting 5/1**.
+
+**Missing:**<br>
+Effat Mahmud Enti.<br>
+
+**Discussions:**<br>
+Repo and files and folders structure<br>
+Discussing Unit testing.<br>
+REport structuring<br>
+
+**Decisions:**<br>
+dividing tasks for writing report<br>
+
+
+| Task        | Responsible |
+| ----------- | ----------- |
+| Section 1,2,3 |  Eric Hallberg     |
+| Er Diagram|  Eric Hallberg     |
+| Section 1,4  |  Samuel Gunnarsson     |
+| Component diagram  |  Samuel Gunnarsson     |
+| Section 1,5    |  Zhiijie Wei     |
+| use case diagram    |  Zhiijie Wei     |
+
 
 
 ---
 ----
 ### Attendencies 
-|Team members| 11/8 | 11/10 | 11/15 | 11/17 | 11/22 | 11/24 |  11/29 | 12/1 | 12/6 | 12/8 | 12/10| 12/13 | 12/15 | 12/20| 12/22|12/27| 12/29 | 1/3
-|---|---| ------ |----|---| ---| ---| ---|---| ---| ---| ---|---| ---|---|--- |--- |--- |---|
-| Eemil Jeskanen | ✅ |✅| ✅ | ✅| ✅| ✅| ✅| ❌| ❌| ❌| ❌| ❌| ❌|❌|❌|❌|❌|❌|
-| Effat Enti| ✅ |✅| ✅| ✅| ✅| ✅|❌ | ✅|❌ | ✅| ✅| ❌| ✅| ❌|❌| ❌|❌|❌|❌|❌|
-| Eric Hallberg| ✅ |✅ | ✅ | ✅| ✅ |✅| ✅| ✅| ✅ |✅| ✅| ✅| ✅ |✅| ✅| ✅|✅|✅|
-| Samuel Gunnarsson| ✅ |✅| ✅| ✅| ✅ |✅| ✅| ✅|✅ |✅| ✅| ✅|✅ |✅| ✅| ✅|✅| ✅|✅|
-| Zhiijie Wei   | ✅ |✅| ✅| ✅| ✅| ✅| ✅| ✅| ✅| ✅| ✅ |✅ | ❌ |✅ | ✅| ✅| ✅|✅-|
+|Team members| 11/8 | 11/10 | 11/15 | 11/17 | 11/22 | 11/24 |  11/29 | 12/1 | 12/6 | 12/8 | 12/10| 12/13 | 12/15 | 12/20| 12/22|12/27| 12/29 | 1/3| 1/5
+|---|---| ------ |----|---| ---| ---| ---|---| ---| ---| ---|---| ---|---|--- |--- |--- |---||---|
+| Eemil Jeskanen | ✅ |✅| ✅ | ✅| ✅| ✅| ✅| ❌| ❌| ❌| ❌| ❌| ❌|❌|❌|❌|❌|❌|❌|
+| Effat Enti| ✅ |✅| ✅| ✅| ✅| ✅|❌ | ✅|❌ | ✅| ✅| ❌| ✅| ❌|❌| ❌|❌|❌|❌|❌|❌|
+| Eric Hallberg| ✅ |✅ | ✅ | ✅| ✅ |✅| ✅| ✅| ✅ |✅| ✅| ✅| ✅ |✅| ✅| ✅|✅|✅|✅|
+| Samuel Gunnarsson| ✅ |✅| ✅| ✅| ✅ |✅| ✅| ✅|✅ |✅| ✅| ✅|✅ |✅| ✅| ✅|✅| ✅|✅|✅|
+| Zhiijie Wei   | ✅ |✅| ✅| ✅| ✅| ✅| ✅| ✅| ✅| ✅| ✅ |✅ | ❌ |✅ | ✅| ✅| ✅|✅|✅|
 
 
 
