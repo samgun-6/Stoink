@@ -1,5 +1,6 @@
 
-from django.test import TestCase
+from django.test import TestCase, Client
+from django.urls import reverse
 from h5py._hl import dataset
 from tensorflow.python.keras.backend import tile
 from stock.models import AiModel, DataSet
@@ -38,7 +39,20 @@ class Column(TestCase):
         self.assertTrue(set(expected) <= set(df.columns))
 
 
-class TestMethods(TestCase):
+class TestMethods(unittest.TestCase):
+
+  def test_single_stock_prediction(self):
+    client = Client()
+    response = client.post('/predict', {'stock_title': 'AAPL'})
+    print('-----------------------------------------')
+    print(response.context['stock_title'])
+    self.assertEqual(response.status_code, 200, msg="Wrong status code returned")
+    self.assertEqual(response.context['stock_title'], 'Apple Inc. Common Stock', msg="Wrong stock name returned")
+    
+    response = client.post('/predict', {'stock_title': 'MRVL'})
+    self.assertEqual(response.status_code, 200, msg="Wrong status code returned")
+    self.assertEqual(response.context['stock_title'], 'Marvell Technology Inc. Common Stock', msg="Wrong stock name returned")
+
   def test_single_stock_not_empty(self):
    stock = ['']
    # error message in case if test case got failed
