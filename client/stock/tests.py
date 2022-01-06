@@ -44,8 +44,7 @@ class TestMethods(unittest.TestCase):
   def test_single_stock_prediction(self):
     client = Client()
     response = client.post('/predict', {'stock_title': 'AAPL'})
-    print('-----------------------------------------')
-    print(response.context['stock_title'])
+
     self.assertEqual(response.status_code, 200, msg="Wrong status code returned")
     self.assertEqual(response.context['stock_title'], 'Apple Inc. Common Stock', msg="Wrong stock name returned")
     
