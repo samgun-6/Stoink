@@ -49,7 +49,7 @@ def show_table(db, name):
     conn.commit()
     conn.close()
 
-def drop_table(db):
+def drop_table(db, name):
 
     # # Connect to database
     conn = db_connection(db)
@@ -57,9 +57,9 @@ def drop_table(db):
     cursor = conn.cursor()
 
     # Drop table
-    cursor.execute("DROP TABLE IF EXISTS stocksdata")
+    cursor.execute(f"DROP TABLE IF EXISTS {name}")
 
-    print('Table Dropped!')
+    print(f'{name} Table Dropped!')
 
     # Commit changes & close connection
     conn.commit()
@@ -72,7 +72,7 @@ def load_database(db, csv, name):
     conn = db_connection(db)
     df.to_sql(name=f'{name}', con=conn, if_exists='replace')
 
-def show_all(db, name):
+def show_all(db):
     # Connect to database
     conn = db_connection(db)
     # Create a cursor

@@ -243,11 +243,18 @@
 			  <button type='submit' id="submit" class="btn btn-primary" >Forecast now!</button>
 			</div>
 		  </form>
+          <form method="post" action="allstocks">
+			{% csrf_token %}
+              <button class="btn btn-primary">See all stocks</button>
+          </form>
+      <br>
+          <br>
+
       <br>
           <br>
           <h2>Input values manually to make a prediction</h2>
 
-<form action="testFunc">
+<form action="manualPredict">
   <label for="fname">reportedEPS:</label><br>
   <input type="text" id="reportedEPS" name="Inputone" value= "0.123"><br>
     <label for="fname">totalNonCurrentAssets:</label><br>

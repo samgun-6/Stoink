@@ -1,23 +1,24 @@
-from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Prediction
-from main.models import Main
-import numpy as np
 import pandas as pd
-import datetime as dt
+from tensorflow.keras.models import load_model
+from .models import AiModel, DataSet
 
-from sklearn.preprocessing import MinMaxScaler
-from tensorflow.keras.models import Sequential, load_model
-from tensorflow.keras.layers import Dense, Dropout, LSTM
 
-#def stock(request):
-   #return HttpResponse("You're at the stocks index.")
+# Not working
+def train(request):
+   return render(request, "admin/base.html")
+
+
+# Not working
+def eval(request):
+   return render(request, "admin/base.html")
 
 
 def stock(request):
    return render(request, 'front/stock.html')
 
-def testFunc(request):
+
+def manualPredict(request):
    if request.method == 'GET':
       # Get all the values from input form
       var1 = (float(request.GET['Inputone']))
@@ -27,13 +28,16 @@ def testFunc(request):
       var5 = (float(request.GET['Inputfive']))
       # coverting data into dataframe (from dict)
       df = pd.DataFrame({'1': var1, '2': var2, '3': var3, '4': var4, '5': var5}, index=[0])
+
       # Load the model and predicting
-      model_fname = 'model_v1.h5'
-      model = load_model(model_fname)
+      temp = AiModel.objects.get(deployed=True)
+      model = load_model(temp.get_titleversion() + ".h5")
+
+      # make prediction
       prediction = str(model.predict(df))
       prediction_in_percentage = float(prediction[2:12]) * 100
    else:
-      prediction = "error something wrong with posting the data"
+      prediction_in_percentage = "error something wrong with posting the data"
    return render(request, 'front/stock.html', {'prediction': '%.4f%%'% prediction_in_percentage})
 
 
@@ -558,29 +562,36 @@ def predict(request):
          stock_name = "Marvell Technology Inc. Common Stock"
       stock = stock_value
 
-      df = pd.read_csv('data/topFiveFeats.csv', sep=',')
-      df.drop('1m', axis=1, inplace=True)
-      df.drop('timestamp', axis=1, inplace=True)
-      df.drop('symbol', axis=1, inplace=True)
+   # query a DataSet model,
+   temp = DataSet.objects.get(title="topFiveFeats.csv")
 
-      # Load the model
-      model_fname = 'model_v1.h5'
-      model = load_model(model_fname)
+   # extracting the JSON data into a dataframe
+   extracted_df = temp.loadframe()
 
+   # Sort & filter dataframe
+   extracted_df['timestamp'] = pd.to_datetime(extracted_df['timestamp'])
+   extracted_df.sort_values(by='timestamp', ascending=False, inplace=True)
+   single = extracted_df.loc[(extracted_df["symbol"]==f"{stock}")]
+   grouped = single.groupby(by=['symbol'], as_index=False).first()
 
-   predictions = str(model.predict(df))
+   # Slice dataframe
+   grouped.drop('1m', axis=1, inplace=True)
+   grouped.drop('timestamp', axis=1, inplace=True)
+   grouped.drop('symbol', axis=1, inplace=True)
+
+   # Load the model and predicting
+   temp = AiModel.objects.get(deployed=True)
+   model = load_model(temp.get_titleversion() + ".h5")
+
+   predictions = str(model.predict(grouped))
    predictions_in_percentage = float(predictions[2:12]) *100
 
-   # hardcode predictions value in a list, it works to show on screen
-   #predictions = [1,2,3,44,5,555.0,7.0,999,1000]
-   #for i in range(len(predictions)):
-      #prediction = Prediction(i)
    return render(request, 'front/prediction.html',{'stock_title': stock_name, 'predictions': '%.4f%%'% predictions_in_percentage})
 
 
 def allstocks(request):
    if request.method == 'POST':
-    allstocks = ["AAPL","MSFT","GOOG","GOOGL",'AMZN',
+      allstocks = ["AAPL","MSFT","GOOG","GOOGL",'AMZN',
 'TSLA','FB','NVDA','TSM','JPM','V','JNJ','UNH','HD','ADI','BAC','WMT','BABA','ASML','PG',
 'MA','ADBE','NFLX','NTES','CRM','PFE','DIS','NKE','XOM','NVO', 'ORCL','TM','TMO','LLY','CMCSA',
 'KO','PYPL', 'AVGO','ACN','COST', 'ABT', 'PEP','DHR','CVX', 'CSCO','VZ', 'MRK', 'ABBV',
@@ -598,15 +609,32 @@ def allstocks(request):
    'WM','REGN','ETN','NET','FIS', 'NSC','APD', 'ECL', 'FISV', 'BNTX', 'SO', 'RACE','CL',
    'AON','FDX', 'COF', 'DXCM', 'PBR', 'KLAC', 'STLA','NIO','UBS','CRWD','MRVL']
 
-   df = pd.read_csv('data/topFiveFeats.csv', sep=',')
-   df.drop('1m', axis=1, inplace=True)
-   df.drop('timestamp', axis=1, inplace=True)
-   df.drop('symbol', axis=1, inplace=True)
-   # Load the model
-   model_fname = 'model_v1.h5'
-   model = load_model(model_fname)
 
-   predictions = str(model.predict(df))
+   # query a DataSet model,
+   temp = DataSet.objects.get(title="topFiveFeats.csv")
 
-   return render(request, 'front/allstocks.html',{ 'allstocks': allstocks,'predictions': predictions})
+   # extracting the JSON data into a dataframe
+   extracted_df = temp.loadframe()
+
+   # Sort & filter dataframe
+   extracted_df['timestamp'] = pd.to_datetime(extracted_df['timestamp'])
+   extracted_df.sort_values(by='timestamp', ascending=False, inplace=True)
+   grouped = extracted_df.groupby(by=['symbol'], as_index=False).first()
+
+   # Slice dataframe
+   grouped.drop('1m', axis=1, inplace=True)
+   grouped.drop('timestamp', axis=1, inplace=True)
+   grouped.drop('symbol', axis=1, inplace=True)
+   
+   # Load the model and predicting
+   temp = AiModel.objects.get(deployed=True)
+   model = load_model(temp.get_titleversion() + ".h5")
+
+   print(grouped)
+
+   for i in range (0,len(allstocks)):
+     predictions = str(model.predict(grouped))
+     predictions_in_percentage = float(predictions[2:12]) * 100
+     return render(request, 'front/allstocks.html',{ 'allstocks': allstocks,'predictions': '%.4f%%'% predictions_in_percentage})
+
 
