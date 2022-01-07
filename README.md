@@ -24,12 +24,6 @@ The free API version is limited to 5 requests per minute and 500 total per day.
  - CSS
  - LSTM
 
-# Features 
-TBA 
-- Describe your ML pipeline, how the raw data is processed, what features to use
-- Discuss how you addressed the aspects “data validation” and “model evaluation”
-in your project.
-
 # Setup
 ## Install Anaconda(Recommended)
 - Install Anaconda that matches your system via [Anaconda webpage](https://www.anaconda.com/products/individual)
@@ -145,9 +139,6 @@ The client aims to present the option of using our model to predict what the inc
 ![screenshot2](screenshot/screenshot2.png)
 ![screenshot3](screenshot/screenshot3.png)
 ![screenshot4](screenshot/screenshot4.png)
-
-# Production system
-TBA
 
 # Project management 
 [Project management](ProjectManagement.md)
